@@ -22,7 +22,14 @@
 
 		const subject = `Portfolio message from ${values.name.trim()}`;
 		const body = `${values.message.trim()}\n\nFrom: ${values.name.trim()}\nEmail: ${values.email.trim()}`;
-		toast.textContent = 'Opening your email app...';
-		window.location.href = `mailto:${SITE_DATA.social.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+		toast.textContent = 'Opening your email app in a new tab...';
+		const mailtoUrl = `mailto:${SITE_DATA.social.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+		const mailLink = document.createElement('a');
+		mailLink.href = mailtoUrl;
+		mailLink.target = '_blank';
+		mailLink.rel = 'noopener noreferrer';
+		document.body.appendChild(mailLink);
+		mailLink.click();
+		mailLink.remove();
 	});
 })();
