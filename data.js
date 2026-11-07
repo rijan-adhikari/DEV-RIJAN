@@ -363,7 +363,7 @@ var SITE_DATA = {
   social: {
     email: "business.rijan.np@gmail.com",
     whatsapp: "9779708741190",
-    github: "https://github.com/rijan-adhikari/MY_Portfolio",
+    github: "https://github.com/rijan-adhikari",
     githubUsername: "rijan-adhikari",
     facebook: "https://www.facebook.com/profile.php?id=61585298038728",
     instagram: "https://www.instagram.com/rizan.js/"
