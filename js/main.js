@@ -76,9 +76,17 @@
   });
 
   html('education-list', data.education.map(item => `<article class="education-item"><strong>${item.level}</strong><span>${item.institutionName ? `<strong>${item.institutionName}</strong><br>` : ''}${item.institution}<br>${item.location}${item.institutionUrl ? `<br><a class="education-link" href="${item.institutionUrl}" target="_blank" rel="noopener">Visit college website ↗</a>` : ''}</span>${item.status ? `<span class="badge">${item.status}</span>` : ''}</article>`).join(''));
-  html('cert-list', data.certifications.map(item => {
-    const actions = item.file ? `<div class="cert-item__actions"><a href="${item.file}" target="_blank" rel="noopener">Open PDF</a><a href="${item.file}" download>Download PDF</a></div>` : '';
-    return `<article class="cert-item"><strong>${item.name}</strong><p>${item.type} · ${item.issuer} · Issued ${item.date}</p>${actions}</article>`;
+  html('cert-list', data.certifications.map((item, index) => {
+    const safeUrl = value => /^(https?:|\/)/i.test(value || '') ? value : '';
+    const file = safeUrl(item.file);
+    const credential = safeUrl(item.credentialUrl);
+    const actions = file || credential ? `<div class="cert-item__actions">${file ? `<a href="${file}" target="_blank" rel="noopener noreferrer">VIEW DOCUMENT <span>↗</span></a><a href="${file}" download>DOWNLOAD PDF <span>↓</span></a>` : ''}${credential ? `<a href="${credential}" target="_blank" rel="noopener noreferrer">VERIFY CREDENTIAL <span>↗</span></a>` : ''}</div>` : `<span class="cert-item__unlinked">NO PUBLIC DOCUMENT LINK</span>`;
+    return `<article class="cert-item">
+      <div class="cert-item__top"><span>RECORD // ${String(index + 1).padStart(2, '0')}</span><span class="cert-item__type">${item.type}</span></div>
+      <div class="cert-item__emblem" aria-hidden="true"><span>✳</span><i></i></div>
+      <div class="cert-item__content"><h3>${item.name}</h3><p class="cert-item__issuer">${item.issuer}</p><p class="cert-item__date">ISSUED <strong>${item.date}</strong></p></div>
+      <div class="cert-item__bottom">${actions}<span class="cert-item__seal">CREDENTIAL<br>ARCHIVE</span></div>
+    </article>`;
   }).join(''));
   html('timeline-list', data.timeline.map((item, index) => `
     <article class="timeline__item mission-node">
