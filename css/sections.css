@@ -82,3 +82,31 @@
 .footer__social .footer-social-link .social-link__icon svg { width: 14px; height: 14px; }
 .footer__social .footer-social-link:hover { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 16%, transparent); transform: translateY(-2px); }
 @media (prefers-reduced-motion: reduce) { .contact-link.social-link, .footer__social .footer-social-link { transition: none; } }
+
+
+/* Direct-contact section: no backend form required */
+.contact__layout--direct { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(28px, 5vw, 64px); align-items: stretch; }
+.contact__intro { position: relative; overflow: hidden; min-height: 100%; padding: clamp(26px, 4vw, 42px); background: linear-gradient(145deg, color-mix(in srgb, var(--surface-strong) 82%, var(--surface)), var(--surface)); }
+.contact__intro::after { content: ""; position: absolute; width: 210px; height: 210px; right: -95px; bottom: -105px; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 50%; box-shadow: 0 0 0 18px color-mix(in srgb, var(--accent) 4%, transparent), 0 0 0 38px color-mix(in srgb, var(--accent) 3%, transparent); pointer-events: none; }
+.contact__intro h3 { max-width: 360px; margin: 20px 0 14px; font: 600 clamp(2rem, 4vw, 3.25rem)/1.02 "Space Grotesk", sans-serif; letter-spacing: -.045em; }
+.contact__intro > p { max-width: 430px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.contact__availability { display: flex; align-items: center; gap: 9px; margin-top: 34px; color: var(--muted); font: 11px "JetBrains Mono", monospace; }
+.contact__availability-dot { width: 8px; height: 8px; border-radius: 50%; background: #53d69a; box-shadow: 0 0 12px #53d69a; }
+.contact__coordinates { display: flex; flex-direction: column; gap: 7px; margin-top: 38px; padding-top: 18px; border-top: 1px solid var(--border); }
+.contact__coordinates span { color: var(--dim); font: 10px "JetBrains Mono", monospace; letter-spacing: .12em; }
+.contact__coordinates strong { color: var(--text); font: 500 13px "JetBrains Mono", monospace; }
+.contact__side { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center; gap: 12px; padding-top: 0; }
+.contact__side h3, .contact__side > p { grid-column: 1 / -1; }
+.contact__side h3 { margin: 0; font-size: 24px; }
+.contact__side > p { margin: 0 0 10px; line-height: 1.7; }
+.contact-link.social-link { min-width: 0; min-height: 72px; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: color-mix(in srgb, var(--surface) 76%, transparent); overflow-wrap: anywhere; }
+.contact-link.social-link:hover { padding-left: 16px; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, var(--surface)); box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 10%, transparent); }
+.contact-link.social-link .social-link__icon { width: 34px; height: 34px; flex-basis: 34px; }
+.contact-link.social-link .social-link__icon svg { width: 18px; height: 18px; }
+.contact-link.social-link > span:nth-child(2) { min-width: 0; }
+@media (max-width: 767px) {
+  .contact__layout--direct { grid-template-columns: minmax(0, 1fr); }
+  .contact__intro { min-height: 330px; }
+  .contact__side { grid-template-columns: minmax(0, 1fr); }
+  .contact__side h3, .contact__side > p { grid-column: auto; }
+}
