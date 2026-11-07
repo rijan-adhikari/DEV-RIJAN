@@ -43,7 +43,7 @@ var SITE_DATA = {
       level: "Grade 10",
       institution: "Jana Jyoti Model Secondary School",
       institutionUrl: "https://jjmc.edu.np/",
-      location: "Lalbandi-09, Sarlahi, Nepal"
+      location: "Lalbandi-09, Sarlahi, Madhesh Province, Nepal"
     },
     {
       level: "+2",
