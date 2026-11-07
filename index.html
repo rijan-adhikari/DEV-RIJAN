@@ -3,30 +3,61 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Rijan Adhikari — Dev</title>
-<meta name="description" content="Portfolio of Rijan Adhikari, a software developer and cybersecurity enthusiast from Nepal, building projects and learning in public." />
+<title>Rijan Adhikari | Software Developer &amp; Cybersecurity Enthusiast</title>
+<meta name="description" content="Explore Rijan Adhikari's portfolio featuring software development projects, cybersecurity learning tracks, technical skills, education, and hands-on experiments from Nepal." />
+<meta name="author" content="Rijan Adhikari" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#000000" />
+<link rel="canonical" id="canonical-url" href="https://adhikari-rijan.onrender.com/" />
 <script>try{var t=localStorage.getItem("site-theme");document.documentElement.dataset.theme=t==="dark"?"dark":"violet"}catch(e){}</script>
 <link rel="icon" type="image/png" sizes="96x96" href="public/images/profile/Profile-Favicon.png?v=2" />
+<link rel="apple-touch-icon" href="public/images/profile/Profile-Favicon.png?v=2" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Rijan Adhikari — Dev" />
-<meta property="og:description" content="Software developer and cybersecurity enthusiast from Nepal. Building projects and learning in public." />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content="Rijan Adhikari | Software Developer &amp; Cybersecurity Enthusiast" />
+<meta property="og:description" content="Explore Rijan Adhikari's software projects, cybersecurity learning tracks, technical skills, and experiments." />
+<meta property="og:url" content="https://adhikari-rijan.onrender.com/" />
 <meta property="og:site_name" content="Rijan Adhikari" />
+<meta property="og:image" content="https://adhikari-rijan.onrender.com/public/images/gallery/og-cover.jpg" />
+<meta property="og:image:alt" content="Rijan Adhikari's developer and cybersecurity portfolio preview" />
 
-<!-- Twitter -->
+<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Rijan Adhikari — Dev" />
-<meta name="twitter:description" content="Software developer and cybersecurity enthusiast from Nepal. Building projects and learning in public." />
+<meta name="twitter:title" content="Rijan Adhikari | Developer &amp; Cybersecurity Enthusiast" />
+<meta name="twitter:description" content="Software projects, cybersecurity learning tracks, technical skills, and hands-on experiments from Nepal." />
+<meta name="twitter:image" content="https://adhikari-rijan.onrender.com/public/images/gallery/og-cover.jpg" />
+<meta name="twitter:image:alt" content="Rijan Adhikari's developer and cybersecurity portfolio preview" />
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Rijan Adhikari",
-  "jobTitle": "Cybersecurity Enthusiast",
-  "homeLocation": { "@type": "Place", "name": "Nepal" },
-  "sameAs": ["https://github.com/rijan-adhikari"]
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://adhikari-rijan.onrender.com/#person",
+      "name": "Rijan Adhikari",
+      "jobTitle": "Software Developer & Cybersecurity Enthusiast",
+      "url": "https://adhikari-rijan.onrender.com/",
+      "image": "https://adhikari-rijan.onrender.com/public/images/profile/Profile-Optimized.webp",
+      "homeLocation": { "@type": "Place", "name": "Nepal" },
+      "sameAs": [
+        "https://github.com/rijan-adhikari",
+        "https://www.facebook.com/profile.php?id=61585298038728",
+        "https://www.instagram.com/rizan.js/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://adhikari-rijan.onrender.com/#website",
+      "url": "https://adhikari-rijan.onrender.com/",
+      "name": "Rijan Adhikari | Developer & Cybersecurity Enthusiast",
+      "description": "Portfolio featuring software development projects, cybersecurity learning, and technical experiments.",
+      "publisher": { "@id": "https://adhikari-rijan.onrender.com/#person" },
+      "inLanguage": "en"
+    }
+  ]
 }
 </script>
 
@@ -207,6 +238,11 @@
         <h2 class="section-title">Curiosity, pointed at systems</h2>
         <p class="lab__intro" id="lab-intro"></p>
         <div class="lab__tools grid grid--3 reveal-stagger" id="lab-tools"></div>
+        <div class="lab__tracks-wrap">
+          <span class="eyebrow">Practice tracks</span>
+          <p class="lab__tracks-intro">Structured areas of study for documenting authorized experiments, methods, observations, and lessons learned.</p>
+          <div class="lab__tracks grid grid--3 reveal-stagger" id="lab-tracks"></div>
+        </div>
         <div class="lab__experience">
           <span class="eyebrow" style="margin-bottom:4px;">Competition</span>
           <h3 id="lab-exp-title"></h3>
@@ -348,8 +384,30 @@
 </div>
 
 <footer class="footer">
-  <div class="wrap footer__row">
-    <span>© <span id="footer-year"></span> <span id="footer-name"></span>. Built from scratch, mistakes included.</span>
+  <div class="wrap">
+    <div class="footer__main">
+      <div class="footer__brand">
+        <a class="footer__brand-link" href="#hero">RIJAN<span>.DEV</span></a>
+        <p>Software Developer &amp; Cybersecurity Enthusiast.<br>Building, learning, and exploring security from Nepal.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Tech Stack</a>
+        <a href="#cyber-lab">Cyber Lab</a>
+        <a href="#projects">Projects</a>
+        <a href="#github">GitHub</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="footer__connect">
+        <span class="eyebrow">Connect</span>
+        <div class="footer__social" id="footer-social" aria-label="Social links"></div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="footer-year"></span> <span id="footer-name"></span>. Built from scratch, mistakes included.</span>
+      <a href="#hero" class="footer__top">Back to top ↑</a>
+    </div>
   </div>
 </footer>
 
