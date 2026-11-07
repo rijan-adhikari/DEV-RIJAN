@@ -75,7 +75,17 @@
     }
   });
 
-  html('education-list', data.education.map(item => `<article class="education-item"><strong>${item.level}</strong><span>${item.institutionName ? `<strong>${item.institutionName}</strong><br>` : ''}${item.institution}<br>${item.location}${item.institutionUrl ? `<br><a class="education-link" href="${item.institutionUrl}" target="_blank" rel="noopener">Visit college website ↗</a>` : ''}</span>${item.status ? `<span class="badge">${item.status}</span>` : ''}</article>`).join(''));
+  html('education-list', data.education.map((item, index) => `
+    <article class="education-item">
+      <div class="education-item__index">0${index + 1}</div>
+      <div class="education-item__main">
+        <div class="education-item__top"><span>${item.level}${item.program ? ` · ${item.program}` : ''}</span>${item.status ? `<span class="education-item__status"><i></i>${item.status}</span>` : '<span class="education-item__status education-item__status--complete">COMPLETED</span>'}</div>
+        <h3>${item.institution}</h3>
+        <p>${item.location}</p>
+        ${item.detail ? `<p class="education-item__detail">${item.detail}</p>` : ''}
+        ${item.institutionUrl ? `<a class="education-link" href="${item.institutionUrl}" target="_blank" rel="noopener noreferrer">Explore institution <span>↗</span></a>` : ''}
+      </div>
+    </article>`).join(''));
   html('cert-list', data.certifications.map((item, index) => {
     const safeUrl = value => /^(https?:|\/)/i.test(value || '') ? value : '';
     const file = safeUrl(item.file);
@@ -97,6 +107,14 @@
         <p>${item.description}</p>
         <div class="mission-node__footer"><span>SEQUENCE ${String(index + 1).padStart(2, '0')} / ${String(data.timeline.length).padStart(2, '0')}</span><span class="mission-node__arrow" aria-hidden="true">↗</span></div>
       </div>
+    </article>`).join(''));
+  html('behind-screen-grid', data.behindScreen.map((item, index) => `
+    <article class="behind-card">
+      <div class="behind-card__top"><span>FIELD NOTE / 0${index + 1}</span><span>${item.area}</span></div>
+      <div class="behind-card__glyph" aria-hidden="true">${['01','02','03','04'][index]}</div>
+      <h3>${item.title}</h3>
+      <p>${item.description}</p>
+      <div class="behind-card__tools">${item.tools.map(tool => `<span>${tool}</span>`).join('')}</div>
     </article>`).join(''));
   html('interests-grid', data.interests.map(item => `<article class="interest-card"><h3>${item.name}</h3><p>${item.note}</p></article>`).join(''));
   const profile = document.getElementById('github-profile-link'); if (profile) profile.href = data.social.github;
