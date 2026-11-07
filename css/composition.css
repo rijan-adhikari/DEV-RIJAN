@@ -169,3 +169,111 @@
   .section:not(.hero)::after { transition: none; }
   .project-card, .repo, .education-item, .cert-item, .tool-card, .interest-card { transition: none; }
 }
+
+
+/* JOURNEY / ROADMAP RECOMPOSITION
+   Keep the roadmap heading above the sequence instead of in a narrow sticky rail.
+   This prevents the milestone list from looking detached or compressed. */
+.mission-roadmap {
+  display: block;
+  width: min(100%, 1120px);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.mission-roadmap__heading {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 0 28px;
+  padding: 0 0 17px;
+  border-bottom: 1px solid rgba(var(--accent-rgb), .22);
+}
+.mission-roadmap__legend {
+  display: inline-flex;
+  margin: 0;
+}
+.mission-timeline {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 4px;
+}
+.mission-timeline #timeline-list {
+  display: grid;
+  gap: 14px;
+}
+.mission-timeline .timeline__track {
+  top: 24px;
+  bottom: 24px;
+}
+.mission-node.timeline__item {
+  min-height: 0;
+  margin: 0;
+  padding: 0 0 0 82px;
+}
+.mission-node__marker {
+  top: 20px;
+}
+.mission-node__card {
+  min-width: 0;
+  padding: 21px 24px 16px;
+}
+.mission-node__top,
+.mission-node__footer {
+  flex-wrap: wrap;
+  font-size: 9px;
+  line-height: 1.5;
+}
+.mission-node__card h3 {
+  margin-top: 13px;
+}
+.mission-node__card p {
+  max-width: 760px;
+  font-size: 14px;
+  line-height: 1.75;
+}
+@media (max-width: 767px) {
+  .mission-roadmap__heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .mission-timeline .timeline__track {
+    left: 18px;
+    top: 19px;
+    bottom: 20px;
+  }
+  .mission-node.timeline__item {
+    padding-left: 54px;
+  }
+  .mission-node__marker {
+    top: 16px;
+    width: 38px;
+    height: 38px;
+  }
+  .mission-node__card {
+    padding: 16px 15px 13px;
+  }
+  .mission-node__card p {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+}
+@media (max-width: 380px) {
+  .mission-node.timeline__item {
+    padding-left: 48px;
+  }
+  .mission-timeline .timeline__track {
+    left: 15px;
+  }
+  .mission-node__marker {
+    width: 32px;
+    height: 32px;
+  }
+  .mission-node__card {
+    padding: 14px 12px 12px;
+  }
+}
