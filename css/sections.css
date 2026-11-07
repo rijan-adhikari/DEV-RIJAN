@@ -38,3 +38,31 @@
 .cert-item__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .cert-item__actions a { padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; color: var(--accent); font: 10px "JetBrains Mono", monospace; text-decoration: none; }
 .cert-item__actions a:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+
+/* Cyber Lab learning tracks */
+.lab__tracks-wrap { margin: 8px 0 42px; }
+.lab__tracks-intro { max-width: 720px; margin: 10px 0 20px; color: var(--muted); font-size: 13px; }
+.lab-track-card { min-width: 0; }
+.lab-track-card__topics { display: grid; gap: 7px; margin: 0; padding-left: 18px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.lab-track-card__meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); color: var(--accent); font: 10px "JetBrains Mono", monospace; }
+.lab-track-card__status { color: var(--muted); }
+
+/* Expanded portfolio footer */
+.footer { padding: 44px 0 18px; }
+.footer__main { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(170px, .9fr) minmax(190px, .9fr); gap: 32px; padding-bottom: 32px; }
+.footer__brand-link { display: inline-block; color: var(--text); font: 700 25px "Space Grotesk", sans-serif; letter-spacing: -.06em; text-decoration: none; }
+.footer__brand-link span { color: var(--accent); }
+.footer__brand p { max-width: 330px; margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.footer__nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; gap: 12px 18px; }
+.footer__nav a, .footer__social a, .footer__top { color: var(--muted); font: 11px "JetBrains Mono", monospace; text-decoration: none; transition: color .2s ease; }
+.footer__nav a:hover, .footer__social a:hover, .footer__top:hover { color: var(--accent); }
+.footer__connect > .eyebrow { display: inline-flex; margin-bottom: 14px; }
+.footer__social { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+.footer__bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--dim); font-size: 11px; }
+.footer__top { white-space: nowrap; }
+@media (max-width: 700px) {
+  .footer__main { grid-template-columns: 1fr; gap: 26px; }
+  .footer__nav { max-width: 360px; }
+  .footer__bottom { align-items: flex-start; flex-direction: column; }
+}
