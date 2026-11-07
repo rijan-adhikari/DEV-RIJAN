@@ -43,13 +43,17 @@ var SITE_DATA = {
       level: "Grade 10",
       institution: "Jana Jyoti Model Secondary School",
       institutionUrl: "https://jjmc.edu.np/",
-      location: "Lalbandi, Sarlahi, Madhesh Province, Nepal"
+      location: "Lalbandi, Sarlahi, Madhesh Province, Nepal",
+      detail: "Completed secondary level education."
     },
     {
       level: "+2",
+      program: "Management",
       institution: "The Times International College",
       institutionUrl: "https://timescollege.edu.np/",
-      location: "Dillibazar, Kathmandu, Bagmati Province, Nepal"
+      location: "Dillibazar, Kathmandu, Bagmati Province, Nepal",
+      detail: "Studying management while building practical skills in software development and cybersecurity.",
+      status: "CURRENT"
     }
   ],
 
@@ -364,11 +368,38 @@ var SITE_DATA = {
     { stage: "Build the Business", description: "Long-term goal: a cybersecurity business in Nepal, about 10 years out." }
   ],
 
+  behindScreen: [
+    {
+      area: "BUILD",
+      title: "Websites and software projects",
+      description: "I enjoy taking an idea from a rough sketch to something people can actually use. Most of my time goes into building web interfaces, learning backend development and improving my own projects.",
+      tools: ["HTML", "CSS", "JavaScript", "Python", "FastAPI", "Git"]
+    },
+    {
+      area: "SYSTEMS",
+      title: "Linux, Android and operating systems",
+      description: "I like finding out what is happening under the surface. I have experimented with Linux environments, ChromeOS, virtual machines, Android custom ROMs and ADB based device configuration.",
+      tools: ["Linux", "Debian", "ChromeOS", "ADB", "Android"]
+    },
+    {
+      area: "SECURITY",
+      title: "Networking and cybersecurity labs",
+      description: "I learn security by exploring how systems communicate and where they can go wrong. My practice includes network discovery, packet analysis and web security exercises in authorized learning environments.",
+      tools: ["Nmap", "Wireshark", "Burp Suite", "Metasploit", "Kali Linux", "Aircrack-ng"]
+    },
+    {
+      area: "EXPERIMENTS",
+      title: "Trying ideas and learning by doing",
+      description: "Not every experiment becomes a finished project. I have tried small programming builds, including a calculator, tested different development workflows and taken part in a Wi-Fi and CCTV security competition.",
+      tools: ["JavaScript", "Python", "AI assisted coding", "Hands on testing"]
+    }
+  ],
+
   interests: [
-    { name: "Gaming", note: "Competitive and exploratory, a good way to reset the brain." },
-    { name: "Trading / NEPSE", note: "Following Nepal's stock market, currently through paper trading." },
-    { name: "Vibecoding", note: "AI-assisted, exploratory creative coding sessions." },
-    { name: "Enjoying Life", note: "Not everything has to be a project." }
+    { name: "Gaming", note: "A good way to switch off, compete a little and enjoy a different kind of challenge." },
+    { name: "Trading and NEPSE", note: "I follow Nepal's stock market and use paper trading to understand how the market moves." },
+    { name: "Vibecoding", note: "I enjoy turning quick ideas into small experiments with AI assisted creative coding." },
+    { name: "Enjoying life", note: "There is more to life than screens and deadlines. I make time for the people and things I enjoy." }
   ],
 
   social: {
