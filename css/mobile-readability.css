@@ -1,0 +1,55 @@
+/* Mobile readability pass: readable body copy, labels and controls. */
+@media (max-width: 767px) {
+  html { font-size: 16px; }
+  body { font-size: 15px; line-height: 1.75; }
+  p, .section-lede, .hero__statement, .about__text,
+  .project-card__description, .repo__description,
+  .cert-item__description, .education-item__description,
+  .mission-node__description, .contact__description,
+  .footer__description {
+    font-size: 15px !important;
+    line-height: 1.8 !important;
+    overflow-wrap: anywhere;
+  }
+  .eyebrow, .hero__kicker, .hero__meta, .badge, .tag,
+  .skill-chip, .filter-btn, .project-card__meta,
+  .repo__meta, .cert-item__meta, .education-item__meta,
+  .timeline__date, .mission-node__meta, .footer__bottom {
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+  }
+  .project-card__title, .repo__name, .cert-item__title,
+  .education-item__title, .tool-card__title, .interest-card__title,
+  .mission-node__title {
+    font-size: 17px !important;
+    line-height: 1.4 !important;
+  }
+  .project-card, .repo, .cert-item, .education-item,
+  .tool-card, .interest-card, .panel, .mission-node__card,
+  .about-focus, .profile-slot__copy {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .site-tour-panel__title { font-size: 19px !important; line-height: 1.35 !important; }
+  .site-tour-panel__description { font-size: 14px !important; line-height: 1.7 !important; }
+  .btn, .filter-btn, .site-tour-control, .site-tour-exit {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+  .section-visual { opacity: .025 !important; }
+  .code-rain { opacity: .12 !important; }
+}
+@media (max-width: 380px) {
+  body { font-size: 14px; }
+  p, .section-lede, .hero__statement, .about__text,
+  .project-card__description, .repo__description,
+  .cert-item__description, .education-item__description,
+  .mission-node__description, .contact__description,
+  .footer__description { font-size: 14px !important; line-height: 1.75 !important; }
+  .eyebrow, .hero__kicker, .badge, .tag, .skill-chip,
+  .filter-btn, .project-card__meta, .repo__meta,
+  .cert-item__meta, .education-item__meta, .timeline__date {
+    font-size: 11px !important;
+  }
+}
