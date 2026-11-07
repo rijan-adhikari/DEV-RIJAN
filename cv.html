@@ -15,6 +15,8 @@
     .cv-sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 12mm 13mm 10mm; background-color: var(--paper); background-image: linear-gradient(rgba(183,255,60,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(183,255,60,.035) 1px, transparent 1px); background-size: 7mm 7mm; }
     .topline { display: flex; justify-content: space-between; align-items: center; padding-bottom: 5mm; border-bottom: 1px solid var(--line); color: var(--green); font: 9px "JetBrains Mono", monospace; letter-spacing: .08em; }
     header { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 10mm; padding: 8mm 0 6mm; }
+    .identity { display: flex; align-items: center; gap: 5mm; }
+    .portrait { flex: 0 0 27mm; width: 27mm; height: 27mm; border: 1mm solid var(--green); border-radius: 50%; object-fit: cover; }
     h1 { margin: 0; font: 700 33pt/.98 "Space Grotesk", sans-serif; letter-spacing: 0; }
     .role { margin: 3mm 0 0; color: var(--cyan); font: 500 12pt "Space Grotesk", sans-serif; }
     .contact { display: grid; gap: 2mm; text-align: right; color: var(--muted); font: 8.3pt "JetBrains Mono", monospace; }
@@ -43,9 +45,12 @@
   <main class="cv-sheet">
     <div class="topline"><span>RIJAN.DEV / CURRICULUM VITAE</span><span>NEPAL · PORTFOLIO / LEARNING</span></div>
     <header>
-      <div>
+      <div class="identity">
+        <img class="portrait" src="public/images/profile/Profile-CV.jpg" alt="Rijan Adhikari">
+        <div>
         <h1>Rijan Adhikari</h1>
         <p class="role">Software Developer &amp; Cybersecurity Enthusiast</p>
+        </div>
       </div>
       <div class="contact">
         <a href="mailto:business.rijan.np@gmail.com">business.rijan.np@gmail.com</a>
