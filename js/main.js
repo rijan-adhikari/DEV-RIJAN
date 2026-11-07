@@ -15,7 +15,7 @@
     if (typeof value !== 'string') return '';
     try {
       const parsed = new URL(value);
-      return parsed.protocol === 'https:' && ['www.youtube.com', 'youtube.com', 'www.youtube-nocookie.com'].includes(parsed.hostname) && /^\\/embed\\/[A-Za-z0-9_-]+$/.test(parsed.pathname) ? value : '';
+      return parsed.protocol === 'https:' && ['www.youtube.com', 'youtube.com', 'www.youtube-nocookie.com'].includes(parsed.hostname) && parsed.pathname.startsWith('/embed/') && /^[A-Za-z0-9_-]+$/.test(parsed.pathname.slice(7)) ? value : '';
     } catch (error) { return ''; }
   };
   const html = (id, value) => {
