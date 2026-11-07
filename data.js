@@ -49,7 +49,7 @@ var SITE_DATA = {
       level: "+2",
       institution: "The Times International College",
       institutionUrl: "https://timescollege.edu.np/",
-      location: "Kathmandu, Nepal - Dillibazar"
+      location: "Dillibazar, Kathmandu, Nepal"
     }
   ],
 
