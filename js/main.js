@@ -1,7 +1,51 @@
 (() => {
   const data = SITE_DATA;
   const text = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
-  const html = (id, value) => { const el = document.getElementById(id); if (el) el.innerHTML = value; };
+  const safeUrl = (value, allowMailto = true) => {
+    if (typeof value !== 'string' || !value.trim()) return '';
+    const candidate = value.trim();
+    if (/^(#|\\/|\\.\\.?\\/)/.test(candidate) || !/^[a-z][a-z0-9+.-]*:/i.test(candidate)) return candidate;
+    try {
+      const parsed = new URL(candidate, window.location.href);
+      if (parsed.protocol === 'https:' || parsed.protocol === 'http:' || (allowMailto && (parsed.protocol === 'mailto:' || parsed.protocol === 'tel:'))) return candidate;
+    } catch (error) {}
+    return '';
+  };
+  const safeVideoUrl = value => {
+    if (typeof value !== 'string') return '';
+    try {
+      const parsed = new URL(value);
+      return parsed.protocol === 'https:' && ['www.youtube.com', 'youtube.com', 'www.youtube-nocookie.com'].includes(parsed.hostname) && /^\\/embed\\/[A-Za-z0-9_-]+$/.test(parsed.pathname) ? value : '';
+    } catch (error) { return ''; }
+  };
+  const html = (id, value) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const template = document.createElement('template');
+    template.innerHTML = String(value ?? '');
+    const allowed = new Set(['ARTICLE','DIV','SPAN','P','H3','H4','A','BUTTON','UL','LI','STRONG','BR','I','SVG','PATH','RECT','CIRCLE']);
+    template.content.querySelectorAll('*').forEach(node => {
+      if (!allowed.has(node.tagName)) { node.replaceWith(document.createTextNode(node.textContent || '')); return; }
+      [...node.attributes].forEach(attribute => {
+        const name = attribute.name.toLowerCase();
+        const val = attribute.value.trim();
+        if (name.startsWith('on') || ['srcdoc','action','formaction','srcset'].includes(name)) { node.removeAttribute(attribute.name); return; }
+        if (['href','src','xlink:href'].includes(name)) {
+          const checked = safeUrl(val, name !== 'src');
+          if (!checked) node.removeAttribute(attribute.name);
+          else node.setAttribute(attribute.name, checked);
+        }
+        if (name === 'data-video-url') {
+          const checked = safeVideoUrl(val);
+          if (!checked) node.removeAttribute(attribute.name);
+          else node.setAttribute(attribute.name, checked);
+        }
+        if (name === 'style' && !/^--swatch:\\s*(var\\(--accent(?:-2)?\\)|#[0-9a-f]{3,8})\\s*;?$/i.test(val)) node.removeAttribute('style');
+      });
+      if (node.getAttribute('target') === '_blank') node.setAttribute('rel', 'noopener noreferrer');
+    });
+    el.replaceChildren(template.content);
+  };
   text('nav-brand-text', data.identity.handle); text('hero-title', data.identity.name); text('hero-role', data.identity.title); text('hero-statement', data.identity.statement); text('github-username', `@${data.social.githubUsername}`); text('footer-year', new Date().getFullYear()); text('footer-name', data.identity.name);
   html('about-paragraphs', data.about.paragraphs.map(p => `<p>${p}</p>`).join(''));
   html('trait-list', data.about.traits.map(item => `<span>${item}</span>`).join(''));
@@ -52,7 +96,7 @@
     const trigger = event.target.closest('[data-video-url]');
     if (!trigger || !videoModal || !videoFrame) return;
 
-    const url = trigger.getAttribute('data-video-url');
+    const url = safeVideoUrl(trigger.getAttribute('data-video-url'));
     const title = trigger.getAttribute('data-video-title') || 'Tutorial';
     if (!url) return;
 
@@ -117,8 +161,8 @@
       <div class="behind-card__tools">${item.tools.map(tool => `<span>${tool}</span>`).join('')}</div>
     </article>`).join(''));
   html('interests-grid', data.interests.map(item => `<article class="interest-card"><h3>${item.name}</h3><p>${item.note}</p></article>`).join(''));
-  const profile = document.getElementById('github-profile-link'); if (profile) profile.href = data.social.github;
-  const canonical = document.getElementById('canonical-url'); if (canonical && data.seo.url) canonical.href = data.seo.url;
+  const profile = document.getElementById('github-profile-link'); if (profile) { const url = safeUrl(data.social.github); if (url) profile.href = url; else profile.removeAttribute('href'); }
+  const canonical = document.getElementById('canonical-url'); if (canonical && data.seo.url) { const url = safeUrl(data.seo.url, false); if (url) canonical.href = url; }
   const socialIcons = {
     GitHub: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.68-3.76-1.32-3.76-1.32-.5-1.3-1.24-1.65-1.24-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 .1.76 2.1 3.3 1.51.1-.74.4-1.25.7-1.54-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.1-1.45 3.04-1.15 3.04-1.15.61 1.55.23 2.7.12 2.98.72.78 1.15 1.78 1.15 3 0 4.3-2.61 5.23-5.1 5.5.4.35.75 1.02.75 2.06v3.05c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg>',
     Facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5h1.7V3.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H7.3V13h2.8v8h3.4Z"/></svg>',
