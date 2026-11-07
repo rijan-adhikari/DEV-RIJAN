@@ -110,3 +110,26 @@
   .contact__side { grid-template-columns: minmax(0, 1fr); }
   .contact__side h3, .contact__side > p { grid-column: auto; }
 }
+
+/* Compact live-demo action below each GitHub repository card */
+.repo__source { display: block; }
+.repo__demo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 12px;
+  padding: 6px 9px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--accent);
+  font: 10px "JetBrains Mono", monospace;
+  text-decoration: none;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.repo__demo:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), .2);
+}
