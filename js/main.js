@@ -90,7 +90,7 @@
     const safeUrl = value => /^(https?:|\/)/i.test(value || '') ? value : '';
     const file = safeUrl(item.file);
     const credential = safeUrl(item.credentialUrl);
-    const actions = file || credential ? `<div class="cert-item__actions">${file ? `<a href="${file}" target="_blank" rel="noopener noreferrer">VIEW DOCUMENT <span>↗</span></a><a href="${file}" download>DOWNLOAD PDF <span>↓</span></a>` : ''}${credential ? `<a href="${credential}" target="_blank" rel="noopener noreferrer">VERIFY CREDENTIAL <span>↗</span></a>` : ''}</div>` : `<span class="cert-item__unlinked">NO PUBLIC DOCUMENT LINK</span>`;
+    const actions = file || credential ? `<div class="cert-item__actions">${file ? `<a class="cert-action cert-action--view" href="${file}" target="_blank" rel="noopener noreferrer" aria-label="View ${item.name} certificate">VIEW CERTIFICATE <span>↗</span></a><a class="cert-action cert-action--download" href="${file}" download aria-label="Download ${item.name} certificate as PDF">DOWNLOAD CERTIFICATE <span>↓</span></a>` : ''}${credential ? `<a class="cert-action cert-action--verify" href="${credential}" target="_blank" rel="noopener noreferrer">VERIFY CREDENTIAL <span>↗</span></a>` : ''}</div>` : `<span class="cert-item__unlinked">BADGE RECORD · NO PDF ISSUED</span>`;
     return `<article class="cert-item">
       <div class="cert-item__top"><span>RECORD // ${String(index + 1).padStart(2, '0')}</span><span class="cert-item__type">${item.type}</span></div>
       <div class="cert-item__emblem" aria-hidden="true"><span>✳</span><i></i></div>
