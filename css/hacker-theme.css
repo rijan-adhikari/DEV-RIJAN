@@ -569,3 +569,23 @@ main > section.is-tour-active > .hero__inner {
   main > section.is-tour-active > .wrap,
   main > section.is-tour-active > .hero__inner { animation: none; }
 }
+
+
+.voice-explain-toggle {
+  display: inline-flex;
+  width: auto;
+  min-width: 64px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 9px;
+}
+.voice-explain-toggle__label {
+  color: currentColor;
+  font: 600 8px "JetBrains Mono", monospace;
+  letter-spacing: .08em;
+}
+@media (max-width: 767px) {
+  .voice-explain-toggle { min-width: 58px; padding: 0 7px; }
+  .voice-explain-toggle__label { font-size: 7px; }
+}
