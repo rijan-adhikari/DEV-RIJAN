@@ -20,9 +20,9 @@ The repository includes a dependency-free Node server for Render's existing Web 
 ## Pre-launch checklist
 
 - Add credential IDs and verification URLs in `data.js` where available.
-- Add `public/images/profile/profile.jpg` and the social preview image if desired.
+- The current profile assets are already present at `public/images/profile/Profile.jpg` and `public/images/profile/Profile-Optimized.webp`; the social preview is `public/images/gallery/og-cover.jpg`.
 - After choosing a host/domain, set it in `data.js` and add canonical, social preview, and sitemap metadata for that domain.
 - Test at 375px, 768px, 1024px, and desktop widths.
-- Verify reduced motion, keyboard focus, the mobile menu, filters, theme toggle, contact validation, and the hidden terminal.
+- Verify reduced motion, keyboard focus, the mobile menu, filters, theme toggle, direct contact links, and the hidden terminal.
 - Confirm the GitHub API fallback message appears when offline or rate-limited.
-- The contact form opens the visitor's default email app; it does not send or store messages automatically.
+- The contact section uses direct email and social links. There is no contact form or server-side message storage.
