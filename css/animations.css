@@ -1,0 +1,5 @@
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }.reveal.is-visible { opacity: 1; transform: none; }.reveal-stagger > * { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .6s var(--ease); }.reveal-stagger.is-visible > * { opacity: 1; transform: none; }.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: .07s; }.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: .14s; }.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: .21s; }.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: .28s; }
+@keyframes pulse { 50% { opacity: .35; } }
+.konami-unlocked .bg-grid { opacity: .55; animation: grid-shift 4s linear infinite; }
+@keyframes grid-shift { to { background-position: 52px 52px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }.reveal, .reveal-stagger > * { opacity: 1; transform: none; } }

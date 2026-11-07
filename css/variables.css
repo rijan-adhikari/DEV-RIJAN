@@ -1,0 +1,32 @@
+:root {
+  --bg: #000000;
+  --bg-elevated: #050205;
+  --surface: #0a0408;
+  --surface-strong: #14060f;
+  --border: rgba(255, 31, 61, .24);
+  --text: #f6eef1;
+  --muted: #b99aa6;
+  --dim: #7a5a67;
+  --accent: #ff1f3d;
+  --accent-2: #a855f7;
+  --accent-rgb: 255, 31, 61;
+  --accent-2-rgb: 168, 85, 247;
+  --danger: #ff5470;
+  --shadow: 0 24px 80px rgba(0, 0, 0, .9), 0 0 40px rgba(var(--accent-rgb), .06);
+  --glow: 0 0 18px rgba(var(--accent-rgb), .55);
+  --radius: 10px;
+  --wrap: 1720px;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+/* Toggle button swaps the lead colour: red (default) <-> violet. Background stays pure AMOLED black. */
+[data-theme="violet"] {
+  --border: rgba(168, 85, 247, .26);
+  --accent: #a855f7;
+  --accent-2: #ff1f3d;
+  --accent-rgb: 168, 85, 247;
+  --accent-2-rgb: 255, 31, 61;
+  --surface: #07040d;
+  --surface-strong: #10061c;
+  --muted: #a99ab9;
+  --dim: #66587a;
+}

@@ -1,0 +1,19 @@
+{
+  "name": "rijan-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Rijan Adhikari portfolio and contact API",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.0"
+  }
+}
