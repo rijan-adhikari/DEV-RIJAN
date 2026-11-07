@@ -55,20 +55,52 @@ var SITE_DATA = {
 
   certifications: [
     {
-      name: "Cisco Networking Academy",
-      issuer: "Cisco",
-      detail: "Certificate / badge details to be added",
+      name: "Ethical Hacker",
+      type: "Badge",
+      issuer: "Cisco Networking Academy",
+      date: "Oct 10, 2024",
       credentialId: "",
-      credentialUrl: "",
-      date: ""
+      credentialUrl: ""
     },
     {
-      name: "Ethical Hacking Course",
-      issuer: "",
-      detail: "Course/provider details to be added",
+      name: "Ethical Hacker",
+      type: "Certificate",
+      issuer: "Cisco Networking Academy",
+      date: "Oct 10, 2024",
       credentialId: "",
-      credentialUrl: "",
-      date: ""
+      credentialUrl: ""
+    },
+    {
+      name: "Introduction to Cybersecurity",
+      type: "Badge",
+      issuer: "Cisco Networking Academy",
+      date: "Oct 09, 2024",
+      credentialId: "",
+      credentialUrl: ""
+    },
+    {
+      name: "Introduction to Cybersecurity",
+      type: "Certificate",
+      issuer: "Cisco Networking Academy",
+      date: "Oct 09, 2024",
+      credentialId: "",
+      credentialUrl: ""
+    },
+    {
+      name: "Threat Analysis",
+      type: "Module Achievement",
+      issuer: "Cisco Networking Academy",
+      date: "Oct 09, 2024",
+      credentialId: "",
+      credentialUrl: ""
+    },
+    {
+      name: "Cybersecurity Administration",
+      type: "Module Achievement",
+      issuer: "Cisco Networking Academy",
+      date: "Oct 05, 2024",
+      credentialId: "",
+      credentialUrl: ""
     }
   ],
 
@@ -307,6 +339,6 @@ var SITE_DATA = {
     title: "Rijan Adhikari, Software Developer & Cybersecurity Enthusiast",
     description:
       "Portfolio of Rijan Adhikari, a self-taught software developer and cybersecurity enthusiast from Nepal, building projects and learning security one lab at a time.",
-    url: "https://rijan-adhikari.onrender.com/"
+    url: ""
   }
 };

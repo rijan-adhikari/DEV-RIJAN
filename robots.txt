@@ -1,3 +1,2 @@
 User-agent: *
 Allow: /
-Sitemap: https://rijan-adhikari.onrender.com/sitemap.xml

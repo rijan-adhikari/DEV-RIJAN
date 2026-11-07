@@ -63,17 +63,19 @@ public/images/               profile / projects / certificates / gallery
 
 ## Known gaps to fill in
 
-- **Contact form** validates on the front end but is not wired to a
-  backend or email service yet. Connect it to something like Formspree,
-  Resend, or a small serverless function, then replace the block marked
-  with a comment in `js/contact.js`.
+- **Contact form** validates on the front end and opens the visitor's
+  default email app; it does not send or store messages automatically.
 - **Facebook / Instagram URLs** are blank placeholders in `data.js`
   (`social.facebook`, `social.instagram`) — add them when ready; the
   contact section only shows links that are filled in.
-- **Certification details** (credential IDs, dates, exact course names)
-  are placeholders in `js/data.js` — fill in once you have them.
+- **Certification credential IDs and verification URLs** are blank in
+  `data.js` — add them if you have the Cisco credential records.
+- **Deployment domain metadata** is not configured yet; update the URL and
+  social preview metadata after choosing the final host/domain. The preview
+  image is already at `public/images/gallery/og-cover.jpg`.
 - **Project links** (GitHub repos, live URLs) are blank per project in
-  `js/data.js` — add as you publish them.
+  `data.js` — add as you publish them. One project description also needs
+  its final details.
 
 ## Easter eggs
 

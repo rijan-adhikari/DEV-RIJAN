@@ -1,1 +1,28 @@
-(() => { const form = document.getElementById('contact-form'); const toast = document.getElementById('contact-toast'); if (!form) return; form.addEventListener('submit', async event => { event.preventDefault(); const values = Object.fromEntries(new FormData(form)); let valid = true; [['name', values.name?.trim() ? '' : 'Please add your name.'], ['email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email || '') ? '' : 'Enter a valid email.'], ['message', values.message?.trim().length >= 10 ? '' : 'Enter at least 10 characters.']].forEach(([name, error]) => { const target = form.querySelector(`[data-error-for="${name}"]`); if (target) target.textContent = error; if (error) valid = false; }); if (!valid || !toast) return; const submit = form.querySelector('button[type="submit"]'); if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); } toast.textContent = 'Sending securely…'; try { const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(values) }); const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Unable to send your message.'); toast.textContent = 'Message received. Thanks for reaching out.'; form.reset(); } catch (error) { toast.textContent = error.message === 'Failed to fetch' ? 'The contact service is offline right now.' : error.message; } finally { if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); } } }); })();
+(() => {
+	const form = document.getElementById('contact-form');
+	const toast = document.getElementById('contact-toast');
+	if (!form || !toast) return;
+
+	form.addEventListener('submit', event => {
+		event.preventDefault();
+		const values = Object.fromEntries(new FormData(form));
+		let valid = true;
+
+		[
+			['name', values.name?.trim() ? '' : 'Please add your name.'],
+			['email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email || '') ? '' : 'Enter a valid email.'],
+			['message', values.message?.trim().length >= 10 ? '' : 'Enter at least 10 characters.']
+		].forEach(([name, error]) => {
+			const target = form.querySelector(`[data-error-for="${name}"]`);
+			if (target) target.textContent = error;
+			if (error) valid = false;
+		});
+
+		if (!valid) return;
+
+		const subject = `Portfolio message from ${values.name.trim()}`;
+		const body = `${values.message.trim()}\n\nFrom: ${values.name.trim()}\nEmail: ${values.email.trim()}`;
+		toast.textContent = 'Opening your email app...';
+		window.location.href = `mailto:${SITE_DATA.social.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+	});
+})();

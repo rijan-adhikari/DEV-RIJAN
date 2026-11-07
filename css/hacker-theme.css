@@ -67,7 +67,7 @@ html { scrollbar-color: var(--accent) #000; scrollbar-width: thin; }
 .skill-chip, .trait-list span, .badge, .tag { background: #000; border-color: rgba(var(--accent-rgb), .3); }
 .skill-chip:hover { color: var(--text); border-color: var(--accent-2); box-shadow: 0 0 10px rgba(var(--accent-2-rgb), .45); }
 .filter-btn.is-active, .filter-btn:hover { color: #000; box-shadow: var(--glow); }
-.hero__avatar { box-shadow: 0 0 0 4px #000, 0 0 30px rgba(var(--accent-rgb), .6), 0 0 60px rgba(var(--accent-2-rgb), .25); }
+.hero__avatar-frame { box-shadow: 0 0 0 4px #000, 0 0 30px rgba(var(--accent-rgb), .6), 0 0 60px rgba(var(--accent-2-rgb), .25); }
 .timeline__item::before { box-shadow: 0 0 0 5px #000, 0 0 16px var(--accent); }
 .timeline__track { background: linear-gradient(var(--accent), var(--accent-2), transparent); opacity: .6; }
 .contact-link:hover { text-shadow: 0 0 10px rgba(var(--accent-rgb), .8); }
