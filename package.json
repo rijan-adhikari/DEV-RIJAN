@@ -1,0 +1,12 @@
+{
+  "name": "rijan-portfolio-static",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static portfolio served by a dependency-free Node HTTP server",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

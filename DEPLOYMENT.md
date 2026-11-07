@@ -13,6 +13,10 @@ This is a static portfolio with no build step. The page is served directly from 
 
 GitHub Pages is the simplest zero-cost option. `vercel.json` is retained for static deployments.
 
+## Render Web Service
+
+The repository includes a dependency-free Node server for Render's existing Web Service type. Set the build command to `npm install` and the start command to `npm start`; the server reads Render's `PORT` and serves the static site from the repository root. It does not provide an API, admin panel, or message storage.
+
 ## Pre-launch checklist
 
 - Add credential IDs and verification URLs in `data.js` where available.

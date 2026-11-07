@@ -1,8 +1,8 @@
 # Rijan Adhikari — Portfolio
 
 A static, no-build-step portfolio site. Plain HTML/CSS/JS, GSAP for scroll
-animation, Three.js for the hero 3D visual. No framework, no bundler, no
-`npm install` required.
+animation, Three.js for the hero 3D visual. No framework, bundler, or
+external npm dependencies. The optional Node server only serves static files.
 
 ## Run it locally
 
@@ -15,6 +15,8 @@ a tiny local server instead from this folder:
 python3 -m http.server 8000
 # then open http://localhost:8000
 ```
+
+For the same Node static server used by Render, run `npm start` instead.
 
 ## Editing your content
 
