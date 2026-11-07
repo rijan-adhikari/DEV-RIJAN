@@ -42,8 +42,8 @@ html { scrollbar-color: var(--accent) #000; scrollbar-width: thin; }
 .nav { background: rgba(0,0,0,.78); }
 .nav.is-scrolled { box-shadow: 0 1px 0 rgba(var(--accent-rgb), .35), 0 8px 30px rgba(var(--accent-rgb), .08); }
 .nav__links a:hover, .nav__links a.is-active { text-shadow: 0 0 10px rgba(var(--accent-rgb), .8); }
-.theme-toggle, .nav__toggle { background: #000; border-color: var(--accent); box-shadow: 0 0 12px rgba(var(--accent-rgb), .35); }
-.theme-toggle:hover { box-shadow: 0 0 20px rgba(var(--accent-rgb), .7); }
+.theme-toggle, .auto-scroll-toggle, .nav__toggle { background: #000; border-color: var(--accent); box-shadow: 0 0 12px rgba(var(--accent-rgb), .35); }
+.theme-toggle:hover, .auto-scroll-toggle:hover { box-shadow: 0 0 20px rgba(var(--accent-rgb), .7); }
 .hud-rail__progress { background: rgba(var(--accent-rgb), .2); }
 .hud-rail__progress-fill { background: linear-gradient(var(--accent), var(--accent-2)); box-shadow: var(--glow); }
 

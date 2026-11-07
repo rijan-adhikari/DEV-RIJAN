@@ -8,8 +8,12 @@
 .nav__links a { transition: color .2s ease; }
 .nav__links a:hover, .nav__links a.is-active { color: var(--accent); }
 .nav__right { display: flex; gap: 12px; align-items: center; }
-.theme-toggle, .nav__toggle { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 50%; }
+.theme-toggle, .auto-scroll-toggle, .nav__toggle { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 50%; }
 .theme-toggle__knob { display: grid; place-items: center; color: var(--accent); }
+.auto-scroll-toggle { color: var(--accent); cursor: pointer; }
+.auto-scroll-toggle__play, .auto-scroll-toggle__stop { display: grid; place-items: center; }
+.auto-scroll-toggle__stop, .auto-scroll-toggle.is-running .auto-scroll-toggle__play { display: none; }
+.auto-scroll-toggle.is-running .auto-scroll-toggle__stop { display: grid; }
 .nav__toggle { display: none; border-radius: 7px; }
 .hud-rail { position: fixed; z-index: 8; top: 50%; right: 18px; display: flex; flex-direction: column; align-items: center; gap: 10px; transform: translateY(-50%); color: var(--dim); font: 9px "JetBrains Mono", monospace; writing-mode: vertical-rl; }
 .hud-rail__progress { width: 2px; height: 92px; background: var(--border); }
