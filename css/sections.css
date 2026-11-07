@@ -246,3 +246,86 @@
   .project-card__scan { display: none; }
   .project-card, .project-card__action, .filter-btn { transition: none; }
 }
+
+
+/* =====================================================================
+   MISSION CONTROL // DIRECTIONAL ROADMAP
+   ===================================================================== */
+.mission-section { position: relative; overflow: hidden; }
+.mission-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(var(--accent-rgb), .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), .025) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 82%, transparent);
+  pointer-events: none;
+}
+.mission-section > .wrap { position: relative; z-index: 1; }
+.mission-header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(190px, .34fr); align-items: end; gap: clamp(25px, 5vw, 70px); }
+.mission-header__copy { max-width: 760px; }
+.mission-header .eyebrow { justify-content: flex-start !important; }
+.mission-header .section-title { max-width: 720px; margin: 15px 0 13px !important; text-align: left; }
+.mission-header .section-lede { max-width: 690px; margin: 0 !important; text-align: left; }
+.mission-readout { display: grid; gap: 9px; align-self: stretch; padding: 19px; border: 1px solid var(--border); border-left: 2px solid var(--accent); background: linear-gradient(140deg, rgba(var(--accent-rgb), .09), rgba(0,0,0,.2)); }
+.mission-readout__label { color: var(--dim); font: 9px "JetBrains Mono", monospace; letter-spacing: .12em; }
+.mission-readout strong { display: flex; align-items: center; gap: 8px; color: var(--text); font: 600 12px "JetBrains Mono", monospace; }
+.mission-readout strong i { width: 7px; height: 7px; border-radius: 50%; background: #5ce0a0; box-shadow: 0 0 12px #5ce0a0; }
+.mission-readout__divider { height: 1px; margin: 4px 0; background: var(--border); }
+.mission-readout b { color: var(--accent); font: 700 25px "Space Grotesk", sans-serif; }
+.mission-readout__foot { margin-top: 3px; color: var(--dim); font: 8px "JetBrains Mono", monospace; letter-spacing: .06em; }
+.mission-console { position: relative; overflow: hidden; margin: 34px 0 48px; padding: 0; border-color: rgba(var(--accent-rgb), .36); background: linear-gradient(110deg, rgba(var(--accent-rgb), .09), transparent 58%), #050407 !important; }
+.mission-console::after { content: "001"; position: absolute; right: 20px; top: 28px; color: rgba(var(--accent-rgb), .09); font: 700 clamp(50px, 9vw, 100px)/1 "JetBrains Mono", monospace; pointer-events: none; }
+.mission-console__top, .mission-console__bottom { display: flex; justify-content: space-between; gap: 12px; padding: 12px 18px; color: var(--dim); font: 9px "JetBrains Mono", monospace; letter-spacing: .08em; }
+.mission-console__top { border-bottom: 1px solid var(--border); }
+.mission-console__bottom { border-top: 1px solid var(--border); color: var(--accent); }
+.mission-console__body { position: relative; z-index: 1; display: flex; align-items: center; gap: 20px; padding: 23px clamp(18px, 3vw, 30px); }
+.mission-console__symbol { position: relative; display: grid; flex: 0 0 58px; width: 58px; height: 58px; place-items: center; border: 1px solid var(--accent); color: var(--accent); background: rgba(var(--accent-rgb), .07); box-shadow: 0 0 22px rgba(var(--accent-rgb), .12), inset 0 0 18px rgba(var(--accent-rgb), .08); font: 700 28px "Space Grotesk", sans-serif; }
+.mission-console__symbol i { position: absolute; right: -4px; bottom: -4px; width: 10px; height: 10px; border: 2px solid #050407; background: var(--accent-2); box-shadow: 0 0 10px var(--accent-2); }
+.mission-console__body strong { display: block; color: var(--text); font: 600 clamp(16px, 2vw, 20px) "Space Grotesk", sans-serif; }
+.mission-console__body p { max-width: 680px; margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.mission-roadmap { max-width: 900px; margin: 0 auto; }
+.mission-roadmap__heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 23px; }
+.mission-roadmap__legend { display: inline-flex; align-items: center; gap: 8px; color: var(--dim); font: 9px "JetBrains Mono", monospace; letter-spacing: .08em; }
+.mission-roadmap__legend i { width: 7px; height: 7px; border: 1px solid var(--accent); border-radius: 50%; box-shadow: 0 0 9px rgba(var(--accent-rgb), .5); }
+.mission-timeline { position: relative; max-width: none; margin: 0; padding: 0 0 8px; }
+.mission-timeline .timeline__track { top: 25px; bottom: 45px; left: 25px; width: 1px; background: linear-gradient(to bottom, var(--accent), rgba(var(--accent-rgb), .22) 85%, transparent); box-shadow: 0 0 9px rgba(var(--accent-rgb), .24); }
+.mission-node.timeline__item { display: block; position: relative; min-height: 120px; margin: 0; padding: 0 0 22px 76px; border: 0; background: transparent; }
+.mission-node.timeline__item::before { display: none; }
+.mission-node__marker { position: absolute; top: 19px; left: 0; z-index: 2; display: grid; width: 51px; height: 51px; place-items: center; border: 1px solid var(--accent); border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 6px var(--bg), 0 0 18px rgba(var(--accent-rgb), .18); }
+.mission-node__marker span { color: var(--accent); font: 600 12px "JetBrains Mono", monospace; }
+.mission-node__card { position: relative; overflow: hidden; padding: 17px 19px 13px; border: 1px solid var(--border); border-left: 2px solid rgba(var(--accent-rgb), .55); border-radius: 5px; background: linear-gradient(110deg, rgba(var(--accent-rgb), .055), transparent 65%), var(--surface); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.mission-node__card::after { content: ""; position: absolute; top: 0; right: 0; width: 45px; height: 45px; border-top: 1px solid rgba(var(--accent-rgb), .4); border-right: 1px solid rgba(var(--accent-rgb), .4); opacity: .65; }
+.mission-node:hover .mission-node__card { transform: translateX(5px); border-color: var(--accent); box-shadow: 0 0 22px rgba(var(--accent-rgb), .11); }
+.mission-node__top, .mission-node__footer { display: flex; justify-content: space-between; gap: 10px; color: var(--dim); font: 8px "JetBrains Mono", monospace; letter-spacing: .08em; }
+.mission-node__top span:first-child { color: var(--accent); }
+.mission-node__card h3 { margin: 11px 0 5px; color: var(--text); font: 600 clamp(18px, 2.3vw, 23px) "Space Grotesk", sans-serif; letter-spacing: -.025em; }
+.mission-node__card p { max-width: 680px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.mission-node__footer { align-items: center; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--border); }
+.mission-node__arrow { color: var(--accent); font-size: 15px; }
+@media (max-width: 767px) {
+  .mission-header { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .mission-readout { grid-template-columns: 1fr auto; align-items: center; }
+  .mission-readout__label:first-child { grid-column: 1; }
+  .mission-readout strong { grid-column: 2; grid-row: 1; }
+  .mission-readout__divider { grid-column: 1 / -1; }
+  .mission-readout__foot { grid-column: 1 / -1; }
+  .mission-console { margin: 25px 0 37px; }
+  .mission-console__top, .mission-console__bottom { font-size: 7px; }
+  .mission-console__body { align-items: flex-start; gap: 13px; }
+  .mission-console__symbol { flex-basis: 43px; width: 43px; height: 43px; font-size: 22px; }
+  .mission-roadmap__heading { align-items: flex-start; flex-direction: column; }
+  .mission-node.timeline__item { min-height: 0; padding: 0 0 18px 58px; }
+  .mission-timeline .timeline__track { left: 18px; }
+  .mission-node__marker { top: 18px; width: 38px; height: 38px; }
+  .mission-node__marker span { font-size: 10px; }
+  .mission-node__card { padding: 14px 13px 11px; }
+  .mission-node__top { flex-wrap: wrap; font-size: 7px; }
+  .mission-node__card h3 { margin-top: 9px; }
+  .mission-node__card p { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mission-node__card { transition: none; }
+}
