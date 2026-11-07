@@ -86,7 +86,7 @@
   const canonical = document.getElementById('canonical-url'); if (canonical && data.seo.url) canonical.href = data.seo.url;
   const socialLinks = [['Facebook', data.social.facebook], ['Instagram', data.social.instagram]].map(([name, url]) => url ? `<a class="contact-link" href="${url}" target="_blank" rel="noopener">${name}</a>` : `<span class="contact-link contact-link--pending">${name} / URL pending</span>`).join('');
   const whatsappLink = data.social.whatsapp ? `<a class="contact-link" href="https://wa.me/${data.social.whatsapp}?text=${encodeURIComponent('Hi Rijan, I found your portfolio.') }" target="_blank" rel="noopener">WhatsApp / +977 9708741190</a>` : '';
-  html('contact-side', `<h3>Open to thoughtful problems.</h3><p>For collaborations, project conversations, or simply saying hello, email is the fastest route.</p><a class="contact-link" href="mailto:${data.social.email}">${data.social.email}</a>${whatsappLink}<a class="contact-link" href="${data.social.github}" target="_blank" rel="noopener">GitHub / ${data.social.githubUsername}</a>${socialLinks}`);
+  html('contact-side', `<h3>Open to thoughtful problems.</h3><p>For collaborations, project conversations, or simply saying hello, email is the fastest route.</p><a class="contact-link" href="mailto:${data.social.email}" target="_blank" rel="noopener noreferrer">${data.social.email}</a>${whatsappLink}<a class="contact-link" href="${data.social.github}" target="_blank" rel="noopener">GitHub / ${data.social.githubUsername}</a>${socialLinks}`);
   const footerSocialLinks = [
     ['GitHub', `https://github.com/${data.social.githubUsername}`],
     ['Facebook', data.social.facebook],
@@ -94,7 +94,7 @@
     ['Email', data.social.email ? `mailto:${data.social.email}` : ''],
     ['WhatsApp', data.social.whatsapp ? `https://wa.me/${data.social.whatsapp}` : '']
   ].filter(([, url]) => Boolean(url));
-  html('footer-social', footerSocialLinks.map(([name, url]) => `<a href="${url}" ${url.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} aria-label="${name}">${name}</a>`).join(''));
+  html('footer-social', footerSocialLinks.map(([name, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${name}">${name}</a>`).join(''));
   const navToggle = document.getElementById('nav-toggle'); const navLinks = document.getElementById('nav-links');
   navToggle?.addEventListener('click', () => { const open = navLinks?.classList.toggle('is-open'); navToggle.setAttribute('aria-expanded', String(Boolean(open))); });
   navLinks?.addEventListener('click', event => { if (event.target.closest('a')) { navLinks.classList.remove('is-open'); navToggle?.setAttribute('aria-expanded', 'false'); } });
