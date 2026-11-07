@@ -29,7 +29,7 @@
 
   let saved = null;
   try { saved = localStorage.getItem('site-theme'); } catch (e) {}
-  apply(saved === 'violet' ? 'violet' : 'dark');   // an old "light" value is ignored -> always AMOLED black
+  apply(saved === 'dark' ? 'dark' : 'violet');
 
   button?.addEventListener('click', () => {
     const next = root.dataset.theme === 'violet' ? 'dark' : 'violet';

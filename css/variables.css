@@ -18,7 +18,7 @@
   --wrap: 1720px;
   --ease: cubic-bezier(.22, 1, .36, 1);
 }
-/* Toggle button swaps the lead colour: red (default) <-> violet. Background stays pure AMOLED black. */
+/* Violet is the default accent; the toggle switches between violet and red. */
 [data-theme="violet"] {
   --border: rgba(168, 85, 247, .26);
   --accent: #a855f7;
