@@ -80,7 +80,16 @@
     const actions = item.file ? `<div class="cert-item__actions"><a href="${item.file}" target="_blank" rel="noopener">Open PDF</a><a href="${item.file}" download>Download PDF</a></div>` : '';
     return `<article class="cert-item"><strong>${item.name}</strong><p>${item.type} · ${item.issuer} · Issued ${item.date}</p>${actions}</article>`;
   }).join(''));
-  html('timeline-list', data.timeline.map(item => `<article class="timeline__item"><h3>${item.stage}</h3><p>${item.description}</p></article>`).join(''));
+  html('timeline-list', data.timeline.map((item, index) => `
+    <article class="timeline__item mission-node">
+      <div class="mission-node__marker" aria-hidden="true"><span>${String(index + 1).padStart(2, '0')}</span></div>
+      <div class="mission-node__card">
+        <div class="mission-node__top"><span>ROADMAP NODE // ${String(index + 1).padStart(2, '0')}</span><span>${index === data.timeline.length - 1 ? 'LONG-TERM OBJECTIVE' : 'MILESTONE'}</span></div>
+        <h3>${item.stage}</h3>
+        <p>${item.description}</p>
+        <div class="mission-node__footer"><span>SEQUENCE ${String(index + 1).padStart(2, '0')} / ${String(data.timeline.length).padStart(2, '0')}</span><span class="mission-node__arrow" aria-hidden="true">↗</span></div>
+      </div>
+    </article>`).join(''));
   html('interests-grid', data.interests.map(item => `<article class="interest-card"><h3>${item.name}</h3><p>${item.note}</p></article>`).join(''));
   const profile = document.getElementById('github-profile-link'); if (profile) profile.href = data.social.github;
   const canonical = document.getElementById('canonical-url'); if (canonical && data.seo.url) canonical.href = data.seo.url;
