@@ -115,7 +115,28 @@
   exit.addEventListener('click', stop);
 
   window.addEventListener('wheel', () => { if (running) stop(); }, { passive: true });
-  window.addEventListener('touchstart', () => { if (running) stop(); }, { passive: true });
+  // Mobile taps on Previous / Next / Pause must not cancel the tour before
+  // their click handlers run. Only a deliberate vertical swipe outside the
+  // control panel is treated as a manual navigation gesture.
+  let touchStartY = null;
+  let touchStartedInPanel = false;
+  window.addEventListener('touchstart', event => {
+    if (!running || !event.touches || event.touches.length !== 1) return;
+    touchStartY = event.touches[0].clientY;
+    touchStartedInPanel = panel.contains(event.target) || launch.contains(event.target);
+  }, { passive: true });
+  window.addEventListener('touchend', event => {
+    if (!running || touchStartY === null) return;
+    const touch = event.changedTouches && event.changedTouches[0];
+    const deltaY = touch ? Math.abs(touch.clientY - touchStartY) : 0;
+    if (!touchStartedInPanel && deltaY > 45) stop();
+    touchStartY = null;
+    touchStartedInPanel = false;
+  }, { passive: true });
+  window.addEventListener('touchcancel', () => {
+    touchStartY = null;
+    touchStartedInPanel = false;
+  }, { passive: true });
   window.addEventListener('keydown', event => {
     if (running && event.key === 'Escape') { stop(); return; }
     if (running && ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key)) stop();
