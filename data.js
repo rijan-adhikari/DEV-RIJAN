@@ -1,7 +1,7 @@
 /**
- * SITE_DATA — single source of truth for Rijan's portfolio.
+ * SITE_DATA: single source of truth for Rijan's portfolio.
  * Edit this file to update content. Do not hardcode personal info elsewhere.
- * Leave a field as an empty string "" if you don't have it yet — components
+ * Leave a field as an empty string "" if you don't have it yet, components
  * are built to hide empty fields gracefully rather than show "undefined".
  */
 var SITE_DATA = {
@@ -228,14 +228,14 @@ var SITE_DATA = {
 
   projects: [
     {
-      title: "RIJAN.DEV — Developer Portfolio",
+      title: "RIJAN.DEV: Developer Portfolio",
       categories: ["Featured", "Web Development"],
       summary: "A custom-built developer and cybersecurity portfolio designed as a responsive, sci-fi interface for presenting projects, experiments, skills, and technical growth.",
       problem: "Create a personal portfolio that feels like an interactive system console while remaining fast, accessible, responsive, and easy to maintain.",
       built: "A data-driven static portfolio with interactive project filtering, GitHub repository integration, animated Three.js visuals, GSAP motion, SEO metadata, a direct-contact hub, and a custom red/violet hacker theme.",
       stack: ["HTML", "CSS", "JavaScript", "Node.js", "Three.js", "GSAP", "GitHub API"],
       challenges: ["Keeping motion effects responsive and lightweight", "Separating portfolio content into a maintainable data source", "Designing a consistent desktop and mobile experience"],
-      status: "Live — actively maintained",
+      status: "Live and actively maintained",
       links: { github: "https://github.com/rijan-adhikari/DEV-RIJAN", live: "https://adhikari-rijan.onrender.com/" }
     },
     {
@@ -322,7 +322,7 @@ var SITE_DATA = {
       built: "Installed and configured Banana OS 3.1.2 (Android 16 / One UI 8-based) on the Galaxy M51, then completed reversible ADB-only optimization and compatibility testing without root.",
       stack: ["Samsung Galaxy M51", "Android 16", "Banana OS 3.1.2", "One UI 8", "ADB"],
       challenges: ["Troubleshooting ROM flashing and partition behavior", "Testing banking, camera, Bluetooth, notifications, and system stability", "Face Unlock remained unavailable on the final setup"],
-      status: "Completed — final ROM setup and Android experience documented",
+      status: "Completed. Final ROM setup and Android experience documented",
       links: { github: "", live: "" }
     },
     {
