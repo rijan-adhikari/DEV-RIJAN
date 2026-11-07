@@ -179,6 +179,38 @@ var SITE_DATA = {
       { name: "Kali Linux", use: "Primary security testing OS", link: "https://www.kali.org/get-kali/", videoLabel: "David Bombal Kali Linux tutorial", videoEmbedUrl: "https://www.youtube.com/embed/MPkni85O9JA" },
       { name: "Aircrack-ng", use: "Wireless network auditing", link: "https://www.aircrack-ng.org/downloads.html", videoLabel: "David Bombal Wi-Fi lab demo", videoEmbedUrl: "https://www.youtube.com/embed/X49lIPHcurE" }
     ],
+    tracks: [
+      {
+        name: "Network Reconnaissance",
+        objective: "Learn how to map hosts and identify exposed services within an explicitly authorized lab network.",
+        topics: ["Host discovery and network mapping", "Port and service enumeration", "Recording scope, commands, and observations"],
+        tools: ["Nmap"]
+      },
+      {
+        name: "Network Traffic Analysis",
+        objective: "Understand how devices communicate by inspecting packet captures and common network protocols.",
+        topics: ["DNS lookups and HTTP requests", "TCP handshake and connection flow", "Display filters and packet-level observations"],
+        tools: ["Wireshark", "tcpdump"]
+      },
+      {
+        name: "Web Application Security",
+        objective: "Study common web security weaknesses using intentionally vulnerable training applications.",
+        topics: ["HTTP requests and responses", "Authentication and session concepts", "SQL injection and XSS fundamentals"],
+        tools: ["Burp Suite", "OWASP Juice Shop"]
+      },
+      {
+        name: "Linux Security",
+        objective: "Build a practical understanding of Linux users, permissions, processes, and basic system hardening.",
+        topics: ["Users, groups, and file permissions", "Process and service inspection", "Logs and basic hardening checks"],
+        tools: ["Linux", "Bash"]
+      },
+      {
+        name: "Security Automation",
+        objective: "Explore small scripts that make routine security learning and system inspection more repeatable.",
+        topics: ["Python scripting fundamentals", "Parsing logs and command output", "Generating simple findings summaries"],
+        tools: ["Python", "Bash"]
+      }
+    ],
     experience: {
       title: "Cybersecurity Competition",
       description:
@@ -341,6 +373,6 @@ var SITE_DATA = {
     title: "Rijan Adhikari, Software Developer & Cybersecurity Enthusiast",
     description:
       "Portfolio of Rijan Adhikari, a self-taught software developer and cybersecurity enthusiast from Nepal, building projects and learning security one lab at a time.",
-    url: ""
+    url: "https://adhikari-rijan.onrender.com/"
   }
 };
