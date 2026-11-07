@@ -3,7 +3,7 @@
   if (!button) return;
 
   const root = document.documentElement;
-  const speed = 650;
+  const speed = 500;
   let animationFrame = 0;
   let previousFrame = 0;
   let previousScrollBehavior = '';
