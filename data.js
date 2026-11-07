@@ -302,12 +302,12 @@ var SITE_DATA = {
     {
       title: "Custom ROM / Android Experimentation",
       categories: ["Experiments"],
-      summary: "Hands-on experimentation with Android customization, custom ROM environments, and flashing.",
-      problem: "Understand how Android actually works under the hood, beyond using it as a consumer.",
-      built: "Custom ROM installs and system-level configuration across test devices.",
-      stack: ["Android", "Custom ROM tooling"],
-      challenges: ["Debugging failed flashes", "Understanding partition and bootloader behavior"],
-      status: "Ongoing experimentation",
+      summary: "Completed hands-on experimentation with Android customization, custom ROM installation, and system-level configuration on the Samsung Galaxy M51.",
+      problem: "Understand how Android works under the hood through ROM flashing, device configuration, and practical system troubleshooting.",
+      built: "Installed and configured Banana OS 3.1.2 (Android 16 / One UI 8-based) on the Galaxy M51, then completed reversible ADB-only optimization and compatibility testing without root.",
+      stack: ["Samsung Galaxy M51", "Android 16", "Banana OS 3.1.2", "One UI 8", "ADB"],
+      challenges: ["Troubleshooting ROM flashing and partition behavior", "Testing banking, camera, Bluetooth, notifications, and system stability", "Face Unlock remained unavailable on the final setup"],
+      status: "Completed — final ROM setup and Android experience documented",
       links: { github: "", live: "" }
     },
     {
