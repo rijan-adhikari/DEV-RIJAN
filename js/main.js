@@ -25,7 +25,7 @@
     template.innerHTML = String(value ?? '');
     const allowed = new Set(['ARTICLE','DIV','SPAN','P','H3','H4','A','BUTTON','UL','LI','STRONG','BR','I','SVG','PATH','RECT','CIRCLE']);
     template.content.querySelectorAll('*').forEach(node => {
-      if (!allowed.has(node.tagName)) { node.replaceWith(document.createTextNode(node.textContent || '')); return; }
+      if (!allowed.has(String(node.tagName).toUpperCase())) { node.replaceWith(document.createTextNode(node.textContent || '')); return; }
       [...node.attributes].forEach(attribute => {
         const name = attribute.name.toLowerCase();
         const val = attribute.value.trim();
