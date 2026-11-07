@@ -133,7 +133,7 @@
 	const scene = new THREE.Scene();
 	const camera = new THREE.PerspectiveCamera(42, 1, .1, 100);
 	camera.position.z = 4.8;
-	renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+	renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
 
 	const group = new THREE.Group();
 	const core = new THREE.Mesh(
@@ -204,11 +204,12 @@
 	const wake = () => {
 		if (!animationFrame && active && !document.hidden) animationFrame = requestAnimationFrame(animate);
 	};
-	const observer = new IntersectionObserver(entries => {
+	const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
 		active = entries[0].isIntersecting;
-		wake();
-	});
-	observer.observe(canvas);
+		if (active) wake();
+		else if (animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = 0; }
+	}) : null;
+	observer?.observe(canvas);
 	document.addEventListener('visibilitychange', wake);
 	const animate = () => {
 		animationFrame = 0;
