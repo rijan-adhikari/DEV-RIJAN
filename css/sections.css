@@ -66,3 +66,19 @@
   .footer__nav { max-width: 360px; }
   .footer__bottom { align-items: flex-start; flex-direction: column; }
 }
+
+
+/* Sci-fi social identity links */
+.contact-link.social-link { display: flex; align-items: center; gap: 12px; min-height: 48px; text-decoration: none; transition: color .2s ease, padding-left .2s ease, background .2s ease; }
+.contact-link.social-link:hover { padding-left: 8px; color: var(--accent-2); }
+.social-link__icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 28px; width: 28px; height: 28px; color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 7px; background: color-mix(in srgb, var(--accent) 8%, transparent); box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 13%, transparent), inset 0 0 8px color-mix(in srgb, var(--accent) 8%, transparent); }
+.social-link__icon svg { width: 17px; height: 17px; fill: currentColor; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.social-link__icon svg rect, .social-link__icon svg circle, .social-link__icon svg path[fill="none"] { fill: none; }
+.social-link__icon svg .icon-fill { fill: currentColor; stroke: none; }
+.social-link__signal { margin-left: auto; opacity: .55; font-size: 15px; }
+.footer__social { align-items: center; }
+.footer__social .footer-social-link { display: inline-flex; align-items: center; gap: 7px; padding: 7px 9px; border: 1px solid var(--border); border-radius: 8px; background: color-mix(in srgb, var(--panel, var(--bg)) 70%, transparent); transition: border-color .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.footer__social .footer-social-link .social-link__icon { width: 23px; height: 23px; flex-basis: 23px; border-radius: 5px; }
+.footer__social .footer-social-link .social-link__icon svg { width: 14px; height: 14px; }
+.footer__social .footer-social-link:hover { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 16%, transparent); transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .contact-link.social-link, .footer__social .footer-social-link { transition: none; } }
