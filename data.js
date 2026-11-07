@@ -224,6 +224,17 @@ var SITE_DATA = {
 
   projects: [
     {
+      title: "RIJAN.DEV — Developer Portfolio",
+      categories: ["Featured", "Web Development"],
+      summary: "A custom-built developer and cybersecurity portfolio designed as a responsive, sci-fi interface for presenting projects, experiments, skills, and technical growth.",
+      problem: "Create a personal portfolio that feels like an interactive system console while remaining fast, accessible, responsive, and easy to maintain.",
+      built: "A data-driven static portfolio with interactive project filtering, GitHub repository integration, animated Three.js visuals, GSAP motion, SEO metadata, a direct-contact hub, and a custom red/violet hacker theme.",
+      stack: ["HTML", "CSS", "JavaScript", "Node.js", "Three.js", "GSAP", "GitHub API"],
+      challenges: ["Keeping motion effects responsive and lightweight", "Separating portfolio content into a maintainable data source", "Designing a consistent desktop and mobile experience"],
+      status: "Live — actively maintained",
+      links: { github: "https://github.com/rijan-adhikari/DEV-RIJAN", live: "https://adhikari-rijan.onrender.com/" }
+    },
+    {
       title: "NEPSE Paper Trading Backend",
       categories: ["Featured", "Web Development"],
       summary:
