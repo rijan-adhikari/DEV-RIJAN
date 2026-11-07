@@ -11,7 +11,7 @@ var SITE_DATA = {
     title: "Software Developer & Cybersecurity Enthusiast",
     location: "Nepal",
     statement:
-      "I build things, break things, and figure out how they work in between. Currently leveling up in software development and cybersecurity, one project, one lab, one late night at a time.",
+      "I like making things, figuring out how they work and learning by trying them myself. These days I spend most of my time on software projects, operating systems and cybersecurity.",
     heroLines: [
       "> initializing rijan.dev",
       "> loading creativity...",
@@ -23,9 +23,9 @@ var SITE_DATA = {
 
   about: {
     paragraphs: [
-      "I'm a young technology enthusiast who enjoys designing, building, and experimenting with technology. Right now I'm developing my skills in software development and cybersecurity, jumping between projects, operating systems, networking labs, web development, and whatever new tool catches my attention that week.",
-      "I'm curious about how things work. I like breaking problems down until they make sense, and I want to eventually use that knowledge to build and protect real systems.",
-      "This site is not a finished résumé, it's a snapshot of someone actively becoming dangerous at this stuff. Long-term, I want to become a cybersecurity expert and build something meaningful in Nepal."
+      "I'm interested in how technology works, from the websites people use every day to the systems running underneath them. I spend my time building small projects, exploring operating systems and learning the basics of cybersecurity. If I find a tool or idea that catches my attention, chances are I will try it out.",
+      "I enjoy figuring things out, especially when something does not work the way I expected. I usually learn best by testing an idea, making mistakes and working out what went wrong.",
+      "This portfolio is a record of what I am learning and making right now. I still have a lot to learn, but my goal is to become good at cybersecurity and eventually build something useful in Nepal."
     ],
     traits: [
       "Independent",
@@ -174,7 +174,7 @@ var SITE_DATA = {
 
   cyberLab: {
     intro:
-      "Networking and security are where curiosity turns into practice. This is the toolkit I actually use in labs and the one competition I've been part of, not a claim to professional pentesting experience.",
+      "This is where I keep the security tools I have been learning and the areas I practise in my own labs. I am still building my experience, so these are learning projects rather than professional penetration testing work.",
     tools: [
       { name: "Nmap", use: "Network discovery & port scanning", link: "https://nmap.org/download.html", videoLabel: "How Nmap really works | David Bombal", videoEmbedUrl: "https://www.youtube.com/embed/F2PXe_o7KqM" },
       { name: "Wireshark", use: "Packet capture & traffic analysis", link: "https://www.wireshark.org/download.html", videoLabel: "Wireshark Tutorial: Installation and Password Sniffing | David Bombal", videoEmbedUrl: "https://www.youtube.com/embed/4_7A8Ikp5Cc" },
