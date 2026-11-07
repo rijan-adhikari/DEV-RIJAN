@@ -87,7 +87,7 @@
       </div>
     </article>`).join(''));
   html('cert-list', data.certifications.map((item, index) => {
-    const safeUrl = value => /^(https?:|\/)/i.test(value || '') ? value : '';
+    const safeUrl = value => /^(https?:\\/\\/|\\/|\\.\\/|[a-z0-9_-]+\\/)/i.test(value || '') ? value : '';
     const file = safeUrl(item.file);
     const credential = safeUrl(item.credentialUrl);
     const actions = file || credential ? `<div class="cert-item__actions">${file ? `<a class="cert-action cert-action--view" href="${file}" target="_blank" rel="noopener noreferrer" aria-label="View ${item.name} certificate">VIEW CERTIFICATE <span>↗</span></a><a class="cert-action cert-action--download" href="${file}" download aria-label="Download ${item.name} certificate as PDF">DOWNLOAD CERTIFICATE <span>↓</span></a>` : ''}${credential ? `<a class="cert-action cert-action--verify" href="${credential}" target="_blank" rel="noopener noreferrer">VERIFY CREDENTIAL <span>↗</span></a>` : ''}</div>` : `<span class="cert-item__unlinked">BADGE RECORD · NO PDF ISSUED</span>`;
