@@ -1,0 +1,171 @@
+/* ================================================================
+   RIJAN.DEV — balanced wide-screen composition + responsive polish
+   Loaded after the existing theme so layout fixes remain authoritative.
+   ================================================================ */
+
+:root {
+  --content-max: 1480px;
+  --page-gutter: clamp(28px, 5.2vw, 104px);
+}
+
+.wrap {
+  width: min(calc(100% - (var(--page-gutter) * 2)), var(--content-max));
+  max-width: var(--content-max);
+}
+
+/* Give the full page a deliberate frame instead of a narrow centre column. */
+@media (min-width: 1101px) {
+  .section:not(.hero) {
+    padding-block: clamp(112px, 8.2vw, 148px);
+  }
+
+  .section:not(.hero)::before,
+  .section:not(.hero)::after {
+    content: "";
+    position: absolute;
+    top: 13%;
+    bottom: 13%;
+    width: 1px;
+    pointer-events: none;
+    opacity: .7;
+    background: linear-gradient(to bottom, transparent, rgba(var(--accent-rgb), .28) 18%, rgba(var(--accent-2-rgb), .22) 78%, transparent);
+  }
+  .section:not(.hero)::before { left: clamp(12px, 2vw, 34px); }
+  .section:not(.hero)::after { right: clamp(12px, 2vw, 34px); }
+
+  /* Section headers use both columns: headline left, supporting copy right. */
+  .section__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(260px, .72fr);
+    column-gap: clamp(32px, 6vw, 100px);
+    align-items: end;
+    max-width: none;
+    margin-bottom: clamp(42px, 4vw, 66px);
+  }
+  .section__head > .eyebrow { grid-column: 1 / -1; }
+  .section__head > .section-title { grid-column: 1; max-width: 900px; }
+  .section__head > .section-lede {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+    max-width: 520px;
+    margin: 0 0 4px auto;
+    padding: 0 0 4px 22px;
+    border-left: 1px solid rgba(var(--accent-rgb), .38);
+    font-size: 14px;
+    line-height: 1.85;
+  }
+  .section__head > :not(.eyebrow):not(.section-title):not(.section-lede) {
+    grid-column: 1 / -1;
+  }
+  .section__head:not(:has(.section-lede)) {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hero: make the text and visual feel like equal parts of one composition. */
+  .hero > .hero__inner {
+    width: min(calc(100% - (var(--page-gutter) * 2)), 1480px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, .95fr);
+    gap: clamp(44px, 5vw, 96px);
+  }
+  .hero__visual { min-width: 0; }
+  .hero__identity { max-width: 100%; }
+  .hero__title { overflow-wrap: normal; }
+
+  /* Balanced section layouts and denser but readable card grids. */
+  .about__grid,
+  .skills__layout,
+  .contact__layout {
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+    gap: clamp(42px, 6vw, 104px);
+  }
+  .about__text { max-width: 760px; }
+  .skills__layout > :first-child { min-width: 0; }
+  .skill-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; }
+  .lab { padding: clamp(36px, 5vw, 76px); }
+  .lab__tools { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lab__tracks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .project-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .github-repos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .behind-screen-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #interests-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  #education-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+  #education-list .education-item { margin: 0; min-height: 112px; }
+  .mission-header { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .62fr); gap: clamp(40px, 7vw, 112px); align-items: center; }
+  .mission-console { margin-block: 38px 52px; }
+  .mission-roadmap { display: grid; grid-template-columns: minmax(210px, .38fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+  .mission-roadmap__heading { position: sticky; top: 110px; display: block; }
+  .mission-roadmap__legend { display: block; margin-top: 18px; }
+  .timeline { max-width: none; width: 100%; }
+  .contact__layout--direct { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+  .footer__main { grid-template-columns: minmax(0, 1.25fr) minmax(260px, .9fr) minmax(220px, .8fr); gap: clamp(28px, 4vw, 72px); }
+}
+
+/* Tablet: retain the two-column rhythm without squeezing cards. */
+@media (min-width: 768px) and (max-width: 1100px) {
+  :root { --page-gutter: 28px; }
+  .section__head { max-width: none; }
+  .section__head > .section-lede { max-width: 620px; }
+  .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lab__tools, .lab__tracks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #education-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  #education-list .education-item { margin: 0; }
+  .mission-roadmap { display: block; }
+}
+
+/* Visual side detail: restrained data rails, not empty decorative clutter. */
+.section:not(.hero) .wrap { position: relative; z-index: 1; }
+.section-visual { width: min(42vw, 700px); }
+.section-visual--about { right: 2%; }
+.section-visual--skills { left: 2%; }
+.panel, .project-card, .repo, .education-item, .cert-item, .tool-card, .interest-card {
+  min-width: 0;
+}
+.project-card, .repo, .education-item, .cert-item, .tool-card, .interest-card {
+  transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+.project-card:hover, .repo:hover, .education-item:hover, .cert-item:hover, .tool-card:hover, .interest-card:hover {
+  border-color: rgba(var(--accent-rgb), .72);
+}
+
+/* Keep the navigation controls from compressing or colliding on laptops. */
+.nav__brand { flex: 0 0 auto; }
+.nav__right { flex: 0 0 auto; }
+.nav__links { min-width: 0; flex-wrap: wrap; justify-content: center; }
+.site-tour-launch__label { max-width: 130px; }
+
+/* Small screens: preserve clear hierarchy, remove desktop rails and prevent overflow. */
+@media (max-width: 767px) {
+  :root { --page-gutter: 16px; }
+  .section:not(.hero)::before,
+  .section:not(.hero)::after { display: none; }
+  .section__head {
+    display: block;
+    max-width: none;
+    margin-bottom: 30px;
+  }
+  .section__head > .section-lede {
+    max-width: 100%;
+    margin: 14px 0 0;
+    padding: 0;
+    border: 0;
+  }
+  .section-visual { width: 100vw; opacity: .055; }
+  .skill-groups { grid-template-columns: minmax(0, 1fr); }
+  .lab__tools, .lab__tracks { grid-template-columns: minmax(0, 1fr); }
+  #education-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  #education-list .education-item { margin: 0; }
+  .mission-roadmap { display: block; }
+  .mission-roadmap__heading { position: static; }
+  .hero__identity { min-width: 0; }
+  .hero__title { min-width: 0; overflow-wrap: anywhere; }
+  .footer__main { min-width: 0; }
+}
+
+/* Reduced motion: decorative effects never block content or navigation. */
+@media (prefers-reduced-motion: reduce) {
+  .section:not(.hero)::before,
+  .section:not(.hero)::after { transition: none; }
+  .project-card, .repo, .education-item, .cert-item, .tool-card, .interest-card { transition: none; }
+}
