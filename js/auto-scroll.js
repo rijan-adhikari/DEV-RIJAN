@@ -117,6 +117,7 @@
   window.addEventListener('wheel', () => { if (running) stop(); }, { passive: true });
   window.addEventListener('touchstart', () => { if (running) stop(); }, { passive: true });
   window.addEventListener('keydown', event => {
+    if (running && event.key === 'Escape') { stop(); return; }
     if (running && ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key)) stop();
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden && running) stop(); });
