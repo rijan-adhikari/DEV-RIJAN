@@ -342,27 +342,14 @@
         <span class="eyebrow">10 · Contact</span>
         <h2 class="section-title">Let's build something dangerous. In a good way.</h2>
       </div>
-      <div class="contact__layout">
-        <form class="contact__form panel reveal" id="contact-form" style="padding:28px;" novalidate>
-          <div class="field">
-            <label for="field-name">Name</label>
-            <input type="text" id="field-name" name="name" autocomplete="name" />
-            <span class="field__error" data-error-for="name"></span>
-          </div>
-          <div class="field">
-            <label for="field-email">Email</label>
-            <input type="email" id="field-email" name="email" autocomplete="email" />
-            <span class="field__error" data-error-for="email"></span>
-          </div>
-          <div class="field">
-            <label for="field-message">Message</label>
-            <textarea id="field-message" name="message" rows="5"></textarea>
-            <span class="field__error" data-error-for="message"></span>
-          </div>
-          <button type="submit" class="btn btn--primary magnetic" style="align-self:flex-start;">Send Message <span class="btn__arrow">→</span></button>
-          <div class="toast" id="contact-toast" role="status"></div>
-          <p class="form-privacy">Submitting opens your email app with the message ready to send.</p>
-        </form>
+      <div class="contact__layout contact__layout--direct">
+        <div class="contact__intro panel reveal">
+          <span class="eyebrow">DIRECT CONNECTION · NO FORM</span>
+          <h3>Have an idea? Let's talk.</h3>
+          <p>For collaborations, technical discussions, project opportunities, or a simple hello, choose a channel below and reach me directly.</p>
+          <div class="contact__availability"><span class="contact__availability-dot"></span> Open to meaningful conversations</div>
+          <div class="contact__coordinates"><span>LOCATION</span><strong>Nepal · UTC+5:45</strong></div>
+        </div>
         <div class="contact__side reveal" id="contact-side"></div>
       </div>
     </div>
@@ -428,7 +415,6 @@
 <script src="js/constellation.js"></script>
 <script src="js/projects.js"></script>
 <script src="js/github.js"></script>
-<script src="js/contact.js"></script>
 <script src="js/reveal.js"></script>
 <script src="js/tilt.js"></script>
 <script src="js/code-rain.js"></script>
