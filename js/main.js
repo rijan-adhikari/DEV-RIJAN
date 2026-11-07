@@ -63,7 +63,10 @@
   });
 
   html('education-list', data.education.map(item => `<article class="education-item"><strong>${item.level}</strong><span>${item.institutionName ? `<strong>${item.institutionName}</strong><br>` : ''}${item.institution}<br>${item.location}${item.institutionUrl ? `<br><a class="education-link" href="${item.institutionUrl}" target="_blank" rel="noopener">Visit college website ↗</a>` : ''}</span>${item.status ? `<span class="badge">${item.status}</span>` : ''}</article>`).join(''));
-  html('cert-list', data.certifications.map(item => `<article class="cert-item"><strong>${item.name}</strong><p>${item.type} · ${item.issuer} · Issued ${item.date}</p></article>`).join(''));
+  html('cert-list', data.certifications.map(item => {
+    const actions = item.file ? `<div class="cert-item__actions"><a href="${item.file}" target="_blank" rel="noopener">Open PDF</a><a href="${item.file}" download>Download PDF</a></div>` : '';
+    return `<article class="cert-item"><strong>${item.name}</strong><p>${item.type} · ${item.issuer} · Issued ${item.date}</p>${actions}</article>`;
+  }).join(''));
   html('timeline-list', data.timeline.map(item => `<article class="timeline__item"><h3>${item.stage}</h3><p>${item.description}</p></article>`).join(''));
   html('interests-grid', data.interests.map(item => `<article class="interest-card"><h3>${item.name}</h3><p>${item.note}</p></article>`).join(''));
   const profile = document.getElementById('github-profile-link'); if (profile) profile.href = data.social.github;

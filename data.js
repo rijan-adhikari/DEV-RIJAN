@@ -68,7 +68,8 @@ var SITE_DATA = {
       issuer: "Cisco Networking Academy",
       date: "Oct 10, 2024",
       credentialId: "",
-      credentialUrl: ""
+      credentialUrl: "",
+      file: "public/Certificates/Ethical%20hacker%20certificate.pdf"
     },
     {
       name: "Introduction to Cybersecurity",
@@ -84,7 +85,8 @@ var SITE_DATA = {
       issuer: "Cisco Networking Academy",
       date: "Oct 09, 2024",
       credentialId: "",
-      credentialUrl: ""
+      credentialUrl: "",
+      file: "public/Certificates/Introduction%20to%20cybersecurity.pdf"
     },
     {
       name: "Threat Analysis",

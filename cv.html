@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rijan Adhikari | CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @page { size: A4; margin: 0; }
+    :root { color-scheme: dark; --paper: #09110e; --panel: #101a16; --text: #e8f0eb; --muted: #9eada4; --green: #b7ff3c; --cyan: #62e5d0; --line: #2a3a31; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #070b09; color: var(--text); font-family: Inter, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cv-sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 12mm 13mm 10mm; background-color: var(--paper); background-image: linear-gradient(rgba(183,255,60,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(183,255,60,.035) 1px, transparent 1px); background-size: 7mm 7mm; }
+    .topline { display: flex; justify-content: space-between; align-items: center; padding-bottom: 5mm; border-bottom: 1px solid var(--line); color: var(--green); font: 9px "JetBrains Mono", monospace; letter-spacing: .08em; }
+    header { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 10mm; padding: 8mm 0 6mm; }
+    h1 { margin: 0; font: 700 33pt/.98 "Space Grotesk", sans-serif; letter-spacing: 0; }
+    .role { margin: 3mm 0 0; color: var(--cyan); font: 500 12pt "Space Grotesk", sans-serif; }
+    .contact { display: grid; gap: 2mm; text-align: right; color: var(--muted); font: 8.3pt "JetBrains Mono", monospace; }
+    a { color: inherit; text-decoration: none; }
+    .summary { margin: 0 0 6mm; padding: 4mm 5mm; border-left: 2px solid var(--green); background: rgba(16,26,22,.86); color: #c9d5cd; font-size: 9pt; line-height: 1.5; }
+    .columns { display: grid; grid-template-columns: 1.18fr .82fr; gap: 8mm; }
+    section { margin-bottom: 5mm; break-inside: avoid; }
+    h2 { display: flex; align-items: center; gap: 2mm; margin: 0 0 3mm; padding-bottom: 1.5mm; border-bottom: 1px solid var(--line); color: var(--green); font: 600 10pt "JetBrains Mono", monospace; letter-spacing: .03em; }
+    h2::before { content: "//"; color: var(--cyan); }
+    h3 { margin: 0; color: var(--text); font: 600 10pt "Space Grotesk", sans-serif; }
+    p { margin: 1.2mm 0 0; color: var(--muted); font-size: 8.2pt; line-height: 1.42; }
+    .entry { margin: 0 0 3.2mm; }
+    .entry-head { display: flex; justify-content: space-between; gap: 3mm; align-items: baseline; }
+    .date, .label { flex: 0 0 auto; color: var(--cyan); font: 7.3pt "JetBrains Mono", monospace; }
+    .stack { margin-top: 1.3mm; color: #c4d2c8; font: 7.2pt/1.5 "JetBrains Mono", monospace; }
+    .skill-group { margin: 0 0 3mm; }
+    .skill-group h3 { color: var(--cyan); font-size: 8.5pt; }
+    .skill-group p { margin-top: 1mm; }
+    .note { padding: 3mm; border: 1px solid var(--line); background: rgba(16,26,22,.75); }
+    footer { display: flex; justify-content: space-between; margin-top: 2mm; padding-top: 3mm; border-top: 1px solid var(--line); color: var(--muted); font: 7pt "JetBrains Mono", monospace; }
+    @media screen { .cv-sheet { box-shadow: 0 20px 70px #000b; } }
+    @media print { html, body { width: 210mm; height: 297mm; background: var(--paper); } .cv-sheet { margin: 0; box-shadow: none; } }
+  </style>
+</head>
+<body>
+  <main class="cv-sheet">
+    <div class="topline"><span>RIJAN.DEV / CURRICULUM VITAE</span><span>NEPAL · PORTFOLIO / LEARNING</span></div>
+    <header>
+      <div>
+        <h1>Rijan Adhikari</h1>
+        <p class="role">Software Developer &amp; Cybersecurity Enthusiast</p>
+      </div>
+      <div class="contact">
+        <a href="mailto:business.rijan.np@gmail.com">business.rijan.np@gmail.com</a>
+        <a href="https://github.com/rijan-adhikari">github.com/rijan-adhikari</a>
+        <span>Nepal</span>
+      </div>
+    </header>
+    <p class="summary">Technology enthusiast building practical web projects and developing skills in software development and cybersecurity. Hands-on learning spans web interfaces, Python APIs, operating systems, networking, and authorized security labs.</p>
+    <div class="columns">
+      <div>
+        <section>
+          <h2>Selected Projects</h2>
+          <article class="entry">
+            <div class="entry-head"><h3>Restaurant Billing System</h3><span class="label">WEB APP</span></div>
+            <p>Billing workflow for order entry, itemized totals, and checkout, with a focus on practical usability and responsive frontend behavior.</p>
+            <div class="stack">HTML · CSS · JavaScript</div>
+          </article>
+          <article class="entry">
+            <div class="entry-head"><h3>NEPSE Paper Trading Backend</h3><span class="label">IN DEVELOPMENT</span></div>
+            <p>Learning project for simulated trades, organized around API schemas, data models, and database layers. Not a real-money trading product.</p>
+            <div class="stack">Python · FastAPI · SQL · Pydantic</div>
+          </article>
+          <article class="entry">
+            <div class="entry-head"><h3>Proposal Website</h3><span class="label">COMPLETE</span></div>
+            <p>Interactive frontend experiment combining custom interface design, animation, sound, and a personalized user flow.</p>
+            <div class="stack">HTML · CSS · JavaScript</div>
+          </article>
+        </section>
+        <section>
+          <h2>Labs &amp; Practice</h2>
+          <p class="note">Networking and cybersecurity practice in controlled lab environments using Nmap, Wireshark, Burp Suite, Metasploit, Kali Linux, and Aircrack-ng. Participated in a cybersecurity competition involving authorized testing in a controlled environment; no professional security consulting claimed.</p>
+        </section>
+        <section>
+          <h2>Systems Exploration</h2>
+          <p>Hands-on experiments with Linux, ChromeOS, virtual machines, Android customization, custom ROMs, and OpenCore.</p>
+        </section>
+      </div>
+      <aside>
+        <section>
+          <h2>Education</h2>
+          <article class="entry">
+            <h3>+2</h3>
+            <p>The Times International College<br>Dillibazar, Kathmandu, Bagmati Province, Nepal</p>
+          </article>
+          <article class="entry">
+            <h3>Grade 10</h3>
+            <p>Jana Jyoti Model Secondary School<br>Lalbandi, Sarlahi, Madhesh Province, Nepal</p>
+          </article>
+        </section>
+        <section>
+          <h2>Technical Skills</h2>
+          <div class="skill-group"><h3>Development</h3><p>HTML, CSS, JavaScript, responsive UI, Python, FastAPI, APIs</p></div>
+          <div class="skill-group"><h3>Security Labs</h3><p>Networking, Nmap, Wireshark, Burp Suite, Metasploit, Kali Linux, Aircrack-ng</p></div>
+          <div class="skill-group"><h3>Tools &amp; Systems</h3><p>Git, GitHub, Linux, Windows, ChromeOS, virtual machines</p></div>
+        </section>
+        <section>
+          <h2>Certifications</h2>
+          <article class="entry"><h3>Ethical Hacker</h3><p>Cisco Networking Academy · Certificate · Oct 2024</p></article>
+          <article class="entry"><h3>Introduction to Cybersecurity</h3><p>Cisco Networking Academy · Certificate · Oct 2024</p></article>
+          <article class="entry"><h3>Additional Achievements</h3><p>Ethical Hacker and Introduction to Cybersecurity badges; Threat Analysis and Cybersecurity Administration module achievements · Cisco Networking Academy · Oct 2024</p></article>
+        </section>
+        <section>
+          <h2>Focus</h2>
+          <p>Building software, strengthening networking fundamentals, and learning cybersecurity through consistent practice.</p>
+        </section>
+      </aside>
+    </div>
+    <footer><span>RIJAN ADHIKARI</span><span>BUILD · LEARN · SECURE</span></footer>
+  </main>
+</body>
+</html>
