@@ -5,13 +5,16 @@
   let targetScroll = scrollY;
   let currentScroll = targetScroll;
   let frame = 0;
+  let autoScrolling = false;
 
   const measure = () => {
-    sections.forEach(section => {
+    const sectionProgress = sections.map(section => {
       const rect = section.getBoundingClientRect();
       const center = rect.top + (targetScroll - currentScroll) + rect.height / 2;
       const distance = (center - innerHeight / 2) / (innerHeight + rect.height);
-      const progress = Math.max(-1, Math.min(1, distance));
+      return { section, progress: Math.max(-1, Math.min(1, distance)) };
+    });
+    sectionProgress.forEach(({ section, progress }) => {
       section.style.setProperty('--scene-progress', progress.toFixed(3));
       section.classList.toggle('section--near', Math.abs(progress) < .58);
     });
@@ -32,7 +35,7 @@
 
   const requestMeasure = () => {
     targetScroll = scrollY;
-    if (reduced) {
+    if (reduced || autoScrolling) {
       currentScroll = targetScroll;
       measure();
       return;
@@ -40,7 +43,25 @@
     if (!frame) frame = requestAnimationFrame(tick);
   };
 
+  const startAutoScroll = () => {
+    autoScrolling = true;
+    targetScroll = currentScroll = scrollY;
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
+    measure();
+  };
+
+  const stopAutoScroll = () => {
+    autoScrolling = false;
+    targetScroll = currentScroll = scrollY;
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
+    measure();
+  };
+
   addEventListener('scroll', requestMeasure, { passive: true });
   addEventListener('resize', requestMeasure, { passive: true });
+  addEventListener('autoscrollstart', startAutoScroll);
+  addEventListener('autoscrollstop', stopAutoScroll);
   requestMeasure();
 })();

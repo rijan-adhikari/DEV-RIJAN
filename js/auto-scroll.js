@@ -18,6 +18,7 @@
     button.setAttribute('aria-label', 'Start auto-scroll');
     button.setAttribute('aria-pressed', 'false');
     button.title = 'Start auto-scroll tour';
+    window.dispatchEvent(new Event('autoscrollstop'));
   };
 
   const advance = timestamp => {
@@ -43,6 +44,7 @@
     button.setAttribute('aria-label', 'Stop auto-scroll');
     button.setAttribute('aria-pressed', 'true');
     button.title = 'Stop auto-scroll';
+    window.dispatchEvent(new Event('autoscrollstart'));
     animationFrame = requestAnimationFrame(advance);
   };
 
