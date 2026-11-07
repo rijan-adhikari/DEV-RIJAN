@@ -4,7 +4,7 @@
   const safeUrl = (value, allowMailto = true) => {
     if (typeof value !== 'string' || !value.trim()) return '';
     const candidate = value.trim();
-    if (/^(#|\\/|\\.\\.?\\/)/.test(candidate) || !/^[a-z][a-z0-9+.-]*:/i.test(candidate)) return candidate;
+    if (candidate.startsWith('#') || candidate.startsWith('/') || candidate.startsWith('./') || candidate.startsWith('../') || !/^[a-z][a-z0-9+.-]*:/i.test(candidate)) return candidate;
     try {
       const parsed = new URL(candidate, window.location.href);
       if (parsed.protocol === 'https:' || parsed.protocol === 'http:' || (allowMailto && (parsed.protocol === 'mailto:' || parsed.protocol === 'tel:'))) return candidate;
