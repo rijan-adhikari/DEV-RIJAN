@@ -1,6 +1,6 @@
 (() => {
   const cards = document.querySelectorAll('.project-card, .tool-card, .interest-card');
-  if (!cards.length) return;
+  if (!cards.length || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
   cards.forEach(card => {
     card.addEventListener('pointerenter', () => {
