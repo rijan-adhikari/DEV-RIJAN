@@ -103,3 +103,12 @@ public/images/               profile / projects / certificates / gallery
   The 3D hero and the skills canvas follow it automatically through `window.ThemeColors` in `js/theme.js`.
 - To change the colours, edit only `css/variables.css` (both the `:root` and `[data-theme="violet"]` blocks).
 - Remove the code-rain background by deleting the `js/code-rain.js` script tag at the bottom of `index.html`.
+
+## Author & official portfolio
+
+**Created and maintained by [Rijan Adhikari](https://github.com/rijan-adhikari)** — software developer and cybersecurity enthusiast from Nepal.
+
+- **Official portfolio:** https://adhikari-rijan.onrender.com/
+- **GitHub profile:** https://github.com/rijan-adhikari
+
+For the latest work, projects, skills, and contact information, visit the [Rijan Adhikari portfolio](https://adhikari-rijan.onrender.com/).
