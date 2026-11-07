@@ -79,7 +79,7 @@
     <article class="education-item">
       <div class="education-item__index">0${index + 1}</div>
       <div class="education-item__main">
-        <div class="education-item__top"><span>${item.level}${item.program ? ` · ${item.program}` : ''}</span>${item.status ? `<span class="education-item__status"><i></i>${item.status}</span>` : '<span class="education-item__status education-item__status--complete">COMPLETED</span>'}</div>
+        <div class="education-item__top"><span>${item.level}${item.program ? ` · ${item.program}` : ''}</span></div>
         <h3>${item.institution}</h3>
         <p>${item.location}</p>
         ${item.detail ? `<p class="education-item__detail">${item.detail}</p>` : ''}
