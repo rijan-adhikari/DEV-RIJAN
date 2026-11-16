@@ -63,16 +63,16 @@ var SITE_DATA = {
       type: "Badge",
       issuer: "Cisco Networking Academy",
       date: "Oct 10, 2024",
-      credentialId: "",
-      credentialUrl: ""
+      credentialId: "9129f24d-be9f-44a7-a9ce-81601bb80c6a",
+      credentialUrl: "https://www.credly.com/badges/9129f24d-be9f-44a7-a9ce-81601bb80c6a"
     },
     {
       name: "Ethical Hacker",
       type: "Certificate",
       issuer: "Cisco Networking Academy",
       date: "Oct 10, 2024",
-      credentialId: "",
-      credentialUrl: "",
+      credentialId: "2910aeab-d3e8-4502-be11-c64d392f1a06",
+      credentialUrl: "https://www.netacad.com/certificates/?issuanceId=2910aeab-d3e8-4502-be11-c64d392f1a06",
       file: "public/Certificates/Ethical%20hacker%20certificate.pdf"
     },
     {
@@ -80,16 +80,16 @@ var SITE_DATA = {
       type: "Badge",
       issuer: "Cisco Networking Academy",
       date: "Oct 09, 2024",
-      credentialId: "",
-      credentialUrl: ""
+      credentialId: "5ec936b5-daff-492b-98f0-6e97e418e28c",
+      credentialUrl: "https://www.credly.com/badges/5ec936b5-daff-492b-98f0-6e97e418e28c"
     },
     {
       name: "Introduction to Cybersecurity",
       type: "Certificate",
       issuer: "Cisco Networking Academy",
       date: "Oct 09, 2024",
-      credentialId: "",
-      credentialUrl: "",
+      credentialId: "d8ea0bd0-1f4f-40f8-9f18-d5bd0a3f5b5c",
+      credentialUrl: "https://www.netacad.com/certificates/?issuanceId=d8ea0bd0-1f4f-40f8-9f18-d5bd0a3f5b5c",
       file: "public/Certificates/Introduction%20to%20cybersecurity.pdf"
     },
     {
@@ -253,7 +253,7 @@ var SITE_DATA = {
         "Structuring the project so backend logic stays separate from data schemas"
       ],
       status: "In development, learning project, not production-grade",
-      links: { github: "", live: "" },
+      links: { github: "https://github.com/rijan-adhikari/Trading-Website", live: "" },
       files: ["main.py", "database.py", "models.py", "schemas.py", "requirements.txt"]
     },
     {
@@ -271,11 +271,11 @@ var SITE_DATA = {
         "Keeping the UI clean while supporting real-time order and totals management"
       ],
       status: "Fully developed and optimized",
-      links: { github: "", live: "" },
+      links: { github: "https://github.com/rijan-adhikari/Restaurant-Billing-system", live: "" },
       files: ["index.html", "style.css", "script.js", "billing.js", "assets"]
     },
     {
-      title: "Proposal Website",
+      title: "Proposal Website With Backend",
       categories: ["Featured", "Web Development", "Experiments"],
       summary:
         "An interactive, animated proposal-style website, used as a playground for custom UI/UX, motion, and sound.",
@@ -290,18 +290,6 @@ var SITE_DATA = {
       ],
       status: "Complete",
       links: { github: "https://github.com/rijan-adhikari/proposal-website", live: "https://proposal-website-g4n8.onrender.com" }
-    },
-    {
-      title: "Proposal Website With Backend",
-      categories: ["Web Development"],
-      summary:
-        "A follow-up version of the proposal website concept, extended with backend functionality connecting frontend interactions to server-side logic.",
-      problem: "Take the original frontend experiment further by wiring it up to a real backend.",
-      built: "Frontend and backend communicating over an API, extending the original interactive concept.",
-      stack: ["JavaScript", "Backend API"],
-      challenges: ["Connecting frontend interaction states to backend logic cleanly"],
-      status: "Details to be finalized from the repository",
-      links: { github: "", live: "" }
     },
     {
       title: "Calculator First Project",
