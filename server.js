@@ -1,16 +1,14 @@
 'use strict';
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
-const ROOT=__dirname,DATA_DIR=process.env.DATA_DIR||path.join(ROOT,'.data'),MSG_FILE=path.join(DATA_DIR,'messages.json'),PORT=Number(process.env.PORT)||10000;
+const ROOT=__dirname,PORT=Number(process.env.PORT)||10000;
 const attempts=new Map(),dirs=new Set(['css','js','public']),rootFiles=new Set(['cv.html','data.js','index.html','robots.txt','sitemap.xml']);
 const mime={'.css':'text/css; charset=utf-8','.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.pdf':'application/pdf','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.xml':'application/xml','.txt':'text/plain; charset=utf-8'};
 const json=(res,status,data,headers={})=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...headers});res.end(JSON.stringify(data));};
 const text=(res,status,msg)=>{res.writeHead(status,{'Content-Type':'text/plain; charset=utf-8','X-Content-Type-Options':'nosniff'});res.end(msg);};
 const body=(req,max=1e6)=>new Promise((resolve,reject)=>{let raw='';req.on('data',c=>{raw+=c;if(raw.length>max){reject(Object.assign(Error('Request too large'),{status:413}));req.destroy();}});req.on('end',()=>{try{resolve(raw?JSON.parse(raw):{});}catch{reject(Object.assign(Error('Invalid JSON'),{status:400}));}});req.on('error',reject);});
-const atomic=async(file,value)=>{const tmp=file+'.'+crypto.randomBytes(5).toString('hex')+'.tmp';await fs.promises.writeFile(tmp,JSON.stringify(value,null,2),{mode:0o600});await fs.promises.rename(tmp,file);};
-const array=async file=>{try{const v=JSON.parse(await fs.promises.readFile(file,'utf8'));return Array.isArray(v)?v:[];}catch(e){if(e.code==='ENOENT')return[];throw e;}};
 const clean=(v,n=3000)=>typeof v==='string'?v.trim().slice(0,n):'';
 const ip=req=>String(req.headers['x-forwarded-for']||req.socket.remoteAddress||'unknown').split(',')[0].trim();
-async function init(){await fs.promises.mkdir(DATA_DIR,{recursive:true,mode:0o700});try{await fs.promises.access(MSG_FILE);}catch{await atomic(MSG_FILE,[]);}}
+async function init(){}
 async function api(req,res,u){
  if(req.method==='POST'&&u.pathname==='/api/contact'){
   const b=await body(req,20000);
