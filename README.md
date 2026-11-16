@@ -1,114 +1,51 @@
 # Rijan Adhikari — Portfolio
 
-A static, no-build-step portfolio site. Plain HTML/CSS/JS, GSAP for scroll
-animation, Three.js for the hero 3D visual. No framework, bundler, or
-external npm dependencies. The optional Node server only serves static files.
+A static, no-build-step portfolio served by a small Node.js HTTP server. The site content is maintained through the private admin console and stored separately from the public source files.
 
-## Run it locally
+## Run locally
 
-Because the JS uses relative `<script>`/`<link>` tags (not ES modules),
-you can usually just double-click `index.html` to open it directly in a
-browser. If your browser blocks anything when opened via `file://`, run
-a tiny local server instead from this folder:
+Requires Node.js 20 or newer.
 
 ```bash
-python3 -m http.server 8000
-# then open http://localhost:8000
+npm start
+# open http://localhost:10000
 ```
 
-For the same Node static server used by Render, run `npm start` instead.
+## Admin console
 
-## Editing your content
+Open `/admin` on the deployed site.
 
-Everything personal — name, bio, skills, projects, certifications,
-socials, timeline — lives in **`data.js`**. Edit that one file and
-the whole site updates; you should not need to touch HTML/CSS for
-routine content changes.
+- First-run login: **admin / admin**
+- The first login requires an immediate username/password change.
+- Passwords are stored as salted scrypt hashes, not plaintext.
+- Use the Account Settings panel to change your admin username and password.
+- The Portfolio Content panel edits the complete site data (profile, about, skills, projects, education, certificates, social links and SEO) as formatted JSON.
+- The Messages panel shows submissions from the public contact form.
 
-## Adding your photo
+Choose a unique password of at least 10 characters immediately. Do not reuse the temporary password.
 
-Drop your photo into `public/images/profile/` as `profile.jpg`. See
-that folder's README for details. Project screenshots and certificate
-images go in their own subfolders under `public/images/` the same way.
+## Data persistence on Render
 
-## Structure
+The server stores editable portfolio data, admin credentials and contact messages under `DATA_DIR`. For durable storage on Render, attach a persistent disk mounted at `/var/data` and set:
 
-```
-index.html          entry point, all sections
-css/
-  variables.css      design tokens: AMOLED black + red/violet accents
-  base.css           resets, type utilities, accessibility primitives
-  layout.css         nav, HUD rail, section scaffolding
-  components.css     buttons, panels, terminal, cursor, badges
-  sections.css       hero/about/skills/projects/etc. specific styles
-  animations.css     keyframes, reveal base states
-  responsive.css     breakpoint fine-tuning
-  hacker-theme.css   hacker layer: glow, scanlines, code-rain styles, extra animations (loaded last)
-data.js              <- edit this for content changes
-js/
-  theme.js           red / violet accent toggle (+ ThemeColors helper)
-  boot.js            loading screen + hero terminal typing
-  hud.js             scroll progress rail, active-section nav state
-  cursor.js          custom cursor + magnetic buttons
-  three-scene.js      hero 3D cyber core (Three.js)
-  constellation.js    skills canvas visualization
-  projects.js          project grid + filtering
-  github.js             live GitHub repo fetch w/ fallback
-  contact.js             front-end form validation
-  reveal.js               GSAP ScrollTrigger reveals
-  tilt.js                  3D card tilt on hover
-  easter-eggs.js            Konami code, hidden terminal, console msg
-  code-rain.js              falling red/violet code background
-  main.js                    renders data-driven sections from data.js
-public/images/               profile / projects / certificates / gallery
+```text
+DATA_DIR=/var/data
 ```
 
-## Known gaps to fill in
+Without a persistent disk, the server's local data directory may be reset when Render replaces the instance or deploys a new build. That can reset the admin account to the initial admin/admin login and lose saved edits/messages. Keep a backup of your site data.
 
-- **Contact form** validates on the front end and opens the visitor's
-  default email app; it does not send or store messages automatically.
-- **Facebook / Instagram URLs** are blank placeholders in `data.js`
-  (`social.facebook`, `social.instagram`) — add them when ready; the
-  contact section only shows links that are filled in.
-- **Certification credential IDs and verification URLs** are blank in
-  `data.js` — add them if you have the Cisco credential records.
-- **Deployment domain metadata** is not configured yet; update the URL and
-  social preview metadata after choosing the final host/domain. The preview
-  image is already at `public/images/gallery/og-cover.jpg`.
-- **Project links** (GitHub repos, live URLs) are blank per project in
-  `data.js` — add as you publish them. One project description also needs
-  its final details.
+## Contact form email notifications
 
-## Easter eggs
+Contact messages are always stored in the admin inbox when the server is running. To send email notifications to `business.rijan.np@gmail.com`, configure these Render environment variables:
 
-- Press `` ` `` (backtick) to open a hidden terminal. Try `help`.
-- Konami code (`↑ ↑ ↓ ↓ ← → ← → b a`) unlocks a small surprise.
-- Check the browser dev console.
+- `RESEND_API_KEY`: your Resend API key (keep it private; never commit it)
+- `RESEND_FROM_EMAIL`: a sender address verified with Resend, for example `Portfolio <contact@your-verified-domain>`
 
-## Accessibility & performance notes
+Until these are configured, messages remain available in `/admin`, but email notifications are not sent. The form reports that status to the visitor.
 
-- Respects `prefers-reduced-motion` — heavy animation, particle motion,
-  and the custom cursor are disabled/simplified automatically.
-- Custom cursor and card tilt are disabled on touch/coarse-pointer
-  devices.
-- Particle count and pixel ratio scale down on small viewports.
-- Skip link, visible focus states, semantic headings, and ARIA labels
-  are in place — re-check with a screen reader before shipping.
+## Security notes
 
-
-## Theme (AMOLED red / violet hacker)
-
-- Pure `#000000` background. Colours live in `css/variables.css` (`--accent` red, `--accent-2` violet).
-- The round button in the nav switches the lead colour red <-> violet (saved in localStorage).
-  The 3D hero and the skills canvas follow it automatically through `window.ThemeColors` in `js/theme.js`.
-- To change the colours, edit only `css/variables.css` (both the `:root` and `[data-theme="violet"]` blocks).
-- Remove the code-rain background by deleting the `js/code-rain.js` script tag at the bottom of `index.html`.
-
-## Author & official portfolio
-
-**Created and maintained by [Rijan Adhikari](https://github.com/rijan-adhikari)** — software developer and cybersecurity enthusiast from Nepal.
-
-- **Official portfolio:** https://adhikari-rijan.onrender.com/
-- **GitHub profile:** https://github.com/rijan-adhikari
-
-For the latest work, projects, skills, and contact information, visit the [Rijan Adhikari portfolio](https://adhikari-rijan.onrender.com/).
+- Admin routes use an HTTP-only, SameSite session cookie and login rate limiting.
+- The initial admin/admin credentials are intentionally temporary and must be changed on first login.
+- The `.data/` directory and environment files are excluded from Git.
+- Keep the admin URL and credentials private. Use HTTPS (Render provides it for onrender.com domains).
