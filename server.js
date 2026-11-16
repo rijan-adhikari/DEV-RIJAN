@@ -12,7 +12,21 @@ const clean=(v,n=3000)=>typeof v==='string'?v.trim().slice(0,n):'';
 const ip=req=>String(req.headers['x-forwarded-for']||req.socket.remoteAddress||'unknown').split(',')[0].trim();
 async function init(){await fs.promises.mkdir(DATA_DIR,{recursive:true,mode:0o700});try{await fs.promises.access(MSG_FILE);}catch{await atomic(MSG_FILE,[]);}}
 async function api(req,res,u){
- if(req.method==='POST'&&u.pathname==='/api/contact'){const b=await body(req,20000);if(clean(b.website,100))return json(res,200,{success:true});const key='contact:'+ip(req),now=Date.now(),list=(attempts.get(key)||[]).filter(t=>now-t<36e5);if(list.length>=5)return json(res,429,{error:'Please wait before sending another message.'});const name=clean(b.name,100),email=clean(b.email,254),subject=clean(b.subject,160)||'Portfolio enquiry',message=clean(b.message,5000);if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||message.length<10)return json(res,400,{error:'Enter your name, valid email and a message of at least 10 characters.'});const messages=await array(MSG_FILE),item={id:crypto.randomUUID(),name,email,subject,message,createdAt:new Date().toISOString(),emailNotificationSent:false};messages.push(item);await atomic(MSG_FILE,messages);list.push(now);attempts.set(key,list);if(process.env.RESEND_API_KEY){try{const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json'},body:JSON.stringify({from:process.env.RESEND_FROM_EMAIL||'Portfolio <onboarding@resend.dev>',to:['business.rijan.np@gmail.com'],reply_to:email,subject:'[Portfolio] '+subject,text:'From: '+name+' <'+email+'>\n\n'+message})});item.emailNotificationSent=r.ok;if(!r.ok)console.error('Resend:',r.status,await r.text());}catch(e){console.error('Resend:',e.message);}await atomic(MSG_FILE,messages);}return json(res,201,{success:true,emailNotificationSent:item.emailNotificationSent,message:item.emailNotificationSent?'Message sent. Thank you.':'Message saved. Email notification needs provider configuration.'});}
+ if(req.method==='POST'&&u.pathname==='/api/contact'){
+  const b=await body(req,20000);
+  if(clean(b.website,100))return json(res,200,{success:true,message:'Message received.'});
+  const key='contact:'+ip(req),now=Date.now(),list=(attempts.get(key)||[]).filter(t=>now-t<36e5);
+  if(list.length>=5)return json(res,429,{error:'Please wait before sending another message.'});
+  const name=clean(b.name,100),email=clean(b.email,254),subject=clean(b.subject,160)||'Portfolio enquiry',message=clean(b.message,5000);
+  if(!name||!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)||message.length<10)return json(res,400,{error:'Enter your name, valid email and a message of at least 10 characters.'});
+  if(!process.env.RESEND_API_KEY||!process.env.RESEND_FROM_EMAIL)return json(res,503,{error:'The contact email service is not configured yet. Please try again later or use the direct email link.'});
+  list.push(now);attempts.set(key,list);
+  try{
+   const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json'},body:JSON.stringify({from:process.env.RESEND_FROM_EMAIL,to:['business.rijan.np@gmail.com'],reply_to:email,subject:'[Portfolio] '+subject,text:'From: '+name+' <'+email+'>\\nSubject: '+subject+'\\n\\n'+message})});
+   if(!r.ok){const detail=await r.text();console.error('Resend:',r.status,detail);return json(res,502,{error:'Your message could not be delivered right now. Please try again later.'});}
+   return json(res,200,{success:true,message:'Message sent successfully. Thank you for reaching out.'});
+  }catch(e){console.error('Resend:',e.message);return json(res,502,{error:'Your message could not be delivered right now. Please try again later.'});}
+ }
  if(req.method==='GET'&&u.pathname==='/api/health')return json(res,200,{status:'ok'});
  if(u.pathname.startsWith('/api/admin'))return json(res,404,{error:'Not found.'});
  return json(res,404,{error:'API route not found.'});
