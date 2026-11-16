@@ -264,13 +264,13 @@ var SITE_DATA = {
       problem:
         "I wanted to build a practical real-world business system that felt useful beyond a demo, focusing on speed, clarity, and daily usability for restaurant operations.",
       built:
-        "A polished billing interface and logic flow designed for quick order entry, itemized totals, and efficient checkout experience with optimized front-end behavior.",
-      stack: ["HTML", "CSS", "JavaScript", "Modern UI", "Billing Logic"],
+        "A full-stack POS and operations platform with a React and TypeScript frontend, FastAPI backend, SQLAlchemy, PostgreSQL, and Docker Compose. Implemented areas include staff roles, floor and table service, orders and kitchen/bar KOT, billing, inventory, purchasing, suppliers, expenses, reservations, attendance, and payroll workflows.",
+      stack: ["React", "TypeScript", "FastAPI", "SQLAlchemy", "PostgreSQL", "Docker Compose"],
       challenges: [
         "Designing a smoother billing workflow with accurate calculations and fast interactions",
         "Keeping the UI clean while supporting real-time order and totals management"
       ],
-      status: "Fully developed and optimized",
+      status: "Feature-rich development build; production acceptance testing still required",
       links: { github: "https://github.com/rijan-adhikari/Restaurant-Billing-system", live: "" },
       files: ["index.html", "style.css", "script.js", "billing.js", "assets"]
     },
@@ -282,8 +282,8 @@ var SITE_DATA = {
       problem:
         "I wanted to push my frontend skills past static layouts, real interaction design, animated interfaces, and a personalized experience.",
       built:
-        "A fully custom animated interface with interactive buttons, music integration, and a personalized flow from start to finish.",
-      stack: ["HTML", "CSS", "JavaScript"],
+        "A responsive proposal experience with a Node.js/Express backend that records visits and Yes/No interactions, stores event data in JSON, and provides a password-protected admin dashboard with visit statistics, an event table, and JSON export.",
+      stack: ["HTML", "CSS", "JavaScript", "Node.js", "Express", "JSON storage"],
       challenges: [
         "Choreographing animation timing so interactions felt intentional, not random",
         "Getting audio and UI state to stay in sync"
