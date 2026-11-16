@@ -16,7 +16,7 @@ async function api(req,res,u){
   const key='contact:'+ip(req),now=Date.now(),list=(attempts.get(key)||[]).filter(t=>now-t<36e5);
   if(list.length>=5)return json(res,429,{error:'Please wait before sending another message.'});
   const name=clean(b.name,100),email=clean(b.email,254),subject=clean(b.subject,160)||'Portfolio enquiry',message=clean(b.message,5000);
-  if(!name||!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)||message.length<10)return json(res,400,{error:'Enter your name, valid email and a message of at least 10 characters.'});
+  if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||message.length<10)return json(res,400,{error:'Enter your name, valid email and a message of at least 10 characters.'});
   if(!process.env.RESEND_API_KEY||!process.env.RESEND_FROM_EMAIL)return json(res,503,{error:'The contact email service is not configured yet. Please try again later or use the direct email link.'});
   list.push(now);attempts.set(key,list);
   try{
