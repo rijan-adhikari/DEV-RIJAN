@@ -1,5 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /api/
 Sitemap: https://adhikari-rijan.onrender.com/sitemap.xml
