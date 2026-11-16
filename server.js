@@ -1,86 +1,45 @@
-const http = require('node:http');
-const fs = require('node:fs');
-const path = require('node:path');
-
-const siteRoot = __dirname;
-const port = Number(process.env.PORT) || 10000;
-const publicDirectories = new Set(['css', 'js', 'public']);
-const publicRootFiles = new Set(['cv.html', 'data.js', 'index.html', 'robots.txt', 'sitemap.xml']);
-const mimeTypes = {
-  '.css': 'text/css; charset=utf-8',
-  '.html': 'text/html; charset=utf-8',
-  '.ico': 'image/x-icon',
-  '.jpeg': 'image/jpeg',
-  '.jpg': 'image/jpeg',
-  '.js': 'text/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.pdf': 'application/pdf',
-  '.png': 'image/png',
-  '.svg': 'image/svg+xml',
-  '.txt': 'text/plain; charset=utf-8',
-  '.webp': 'image/webp',
-  '.xml': 'application/xml; charset=utf-8'
-};
-
-function sendText(response, status, message) {
-  response.writeHead(status, {
-    'Content-Type': 'text/plain; charset=utf-8',
-    'X-Content-Type-Options': 'nosniff'
-  });
-  response.end(message);
+'use strict';
+const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),vm=require('node:vm');
+const ROOT=__dirname,DATA_DIR=process.env.DATA_DIR||path.join(ROOT,'.data'),SITE_FILE=path.join(DATA_DIR,'site-data.json'),ADMIN_FILE=path.join(DATA_DIR,'admin.json'),MSG_FILE=path.join(DATA_DIR,'messages.json'),PORT=Number(process.env.PORT)||10000;
+const sessions=new Map(),attempts=new Map(),dirs=new Set(['css','js','public','admin']),rootFiles=new Set(['cv.html','data.js','index.html','robots.txt','sitemap.xml']);
+const mime={'.css':'text/css; charset=utf-8','.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.pdf':'application/pdf','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.xml':'application/xml','.txt':'text/plain; charset=utf-8'};
+const json=(res,status,data,headers={})=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...headers});res.end(JSON.stringify(data));};
+const text=(res,status,msg)=>{res.writeHead(status,{'Content-Type':'text/plain; charset=utf-8','X-Content-Type-Options':'nosniff'});res.end(msg);};
+const body=(req,max=1e6)=>new Promise((resolve,reject)=>{let raw='';req.on('data',c=>{raw+=c;if(raw.length>max){reject(Object.assign(Error('Request too large'),{status:413}));req.destroy();}});req.on('end',()=>{try{resolve(raw?JSON.parse(raw):{});}catch{reject(Object.assign(Error('Invalid JSON'),{status:400}));}});req.on('error',reject);});
+const atomic=async(file,value)=>{const tmp=file+'.'+crypto.randomBytes(5).toString('hex')+'.tmp';await fs.promises.writeFile(tmp,JSON.stringify(value,null,2),{mode:0o600});await fs.promises.rename(tmp,file);};
+const array=async file=>{try{const v=JSON.parse(await fs.promises.readFile(file,'utf8'));return Array.isArray(v)?v:[];}catch(e){if(e.code==='ENOENT')return[];throw e;}};
+function defaults(){const c={};vm.runInNewContext(fs.readFileSync(path.join(ROOT,'data.js'),'utf8')+';globalThis.result=SITE_DATA;',c,{timeout:1000});return JSON.parse(JSON.stringify(c.result));}
+const passHash=(p,s)=>crypto.scryptSync(p,s,64).toString('hex');
+const verify=(p,a)=>{const x=Buffer.from(passHash(p,a.salt),'hex'),y=Buffer.from(a.hash,'hex');return x.length===y.length&&crypto.timingSafeEqual(x,y);};
+const cookies=req=>Object.fromEntries((req.headers.cookie||'').split(';').map(x=>x.trim().split(/=(.*)/s)).filter(x=>x.length===2).map(([k,v])=>[k,decodeURIComponent(v)]));
+const session=req=>{const token=cookies(req).portfolio_session,s=token&&sessions.get(token);if(!s||s.exp<Date.now()){if(token)sessions.delete(token);return null;}return{...s,token};};
+const secure=req=>req.headers['x-forwarded-proto']==='https'||process.env.NODE_ENV==='production';
+const cookie=(res,t,sec)=>res.setHeader('Set-Cookie','portfolio_session='+encodeURIComponent(t)+'; HttpOnly; Path=/; SameSite=Strict; Max-Age=28800'+(sec?'; Secure':''));
+const clean=(v,n=3000)=>typeof v==='string'?v.trim().slice(0,n):'';
+const ip=req=>String(req.headers['x-forwarded-for']||req.socket.remoteAddress||'unknown').split(',')[0].trim();
+async function init(){await fs.promises.mkdir(DATA_DIR,{recursive:true,mode:0o700});try{await fs.promises.access(SITE_FILE);}catch{await atomic(SITE_FILE,defaults());}try{await fs.promises.access(ADMIN_FILE);}catch{const salt=crypto.randomBytes(16).toString('hex');await atomic(ADMIN_FILE,{username:'admin',salt,hash:passHash('admin',salt),mustChange:true});console.warn('Initial admin account: admin/admin. Change it immediately after login.');}try{await fs.promises.access(MSG_FILE);}catch{await atomic(MSG_FILE,[]);}}
+async function siteData(){try{return JSON.parse(await fs.promises.readFile(SITE_FILE,'utf8'));}catch{const d=defaults();await atomic(SITE_FILE,d);return d;}}
+async function adminData(){return JSON.parse(await fs.promises.readFile(ADMIN_FILE,'utf8'));}
+function validData(d){return d&&typeof d==='object'&&!Array.isArray(d)&&d.identity&&Array.isArray(d.projects)&&Array.isArray(d.certifications)&&d.social;}
+async function api(req,res,u){
+ const sec=secure(req);
+ if(req.method==='GET'&&u.pathname==='/api/admin/session'){const s=session(req);if(!s)return json(res,200,{authenticated:false});const a=await adminData();return json(res,200,{authenticated:true,username:a.username,mustChangePassword:a.mustChange});}
+ if(req.method==='POST'&&u.pathname==='/api/admin/login'){const key=ip(req),now=Date.now(),list=(attempts.get(key)||[]).filter(t=>now-t<9e5);if(list.length>=8)return json(res,429,{error:'Too many attempts. Try again in 15 minutes.'});const b=await body(req,10000),a=await adminData();if(clean(b.username,64)!==a.username||!verify(String(b.password||''),a)){list.push(now);attempts.set(key,list);return json(res,401,{error:'Incorrect username or password.'});}attempts.delete(key);const token=crypto.randomBytes(32).toString('hex');sessions.set(token,{username:a.username,exp:now+288e5});cookie(res,token,sec);return json(res,200,{success:true,username:a.username,mustChangePassword:a.mustChange});}
+ if(req.method==='POST'&&u.pathname==='/api/admin/logout'){const s=session(req);if(s)sessions.delete(s.token);res.setHeader('Set-Cookie','portfolio_session=; HttpOnly; Path=/; SameSite=Strict; Max-Age=0'+(sec?'; Secure':''));return json(res,200,{success:true});}
+ if(u.pathname.startsWith('/api/admin/')){
+  if(req.headers.origin){try{if(new URL(req.headers.origin).host!==req.headers.host)return json(res,403,{error:'Invalid origin.'});}catch{return json(res,403,{error:'Invalid origin.'});}}
+  const s=session(req);if(!s)return json(res,401,{error:'Please sign in again.'});
+  if(u.pathname==='/api/admin/data'&&req.method==='GET')return json(res,200,await siteData());
+  if(u.pathname==='/api/admin/data'&&req.method==='PUT'){const d=await body(req);if(!validData(d))return json(res,400,{error:'Portfolio data is missing required sections.'});await atomic(SITE_FILE,d);return json(res,200,{success:true});}
+  if(u.pathname==='/api/admin/password'&&req.method==='PUT'){const b=await body(req,20000),a=await adminData(),username=clean(b.username,32),password=String(b.newPassword||'');if(!verify(String(b.currentPassword||''),a))return json(res,400,{error:'Current password is incorrect.'});if(!/^[a-zA-Z0-9_.-]{3,32}$/.test(username))return json(res,400,{error:'Username must be 3–32 characters.'});if(password.length<10)return json(res,400,{error:'Password must contain at least 10 characters.'});const salt=crypto.randomBytes(16).toString('hex');await atomic(ADMIN_FILE,{username,salt,hash:passHash(password,salt),mustChange:false});sessions.clear();const token=crypto.randomBytes(32).toString('hex');sessions.set(token,{username,exp:Date.now()+288e5});cookie(res,token,sec);return json(res,200,{success:true,username});}
+  if(u.pathname==='/api/admin/messages'&&req.method==='GET'){const m=await array(MSG_FILE);return json(res,200,m.sort((a,b)=>b.createdAt.localeCompare(a.createdAt)));}
+  const match=u.pathname.match(/^\/api\/admin\/messages\/([a-f0-9-]+)$/i);if(match&&req.method==='DELETE'){await atomic(MSG_FILE,(await array(MSG_FILE)).filter(m=>m.id!==match[1]));return json(res,200,{success:true});}
+  return json(res,404,{error:'Admin route not found.'});
+ }
+ if(req.method==='POST'&&u.pathname==='/api/contact'){const b=await body(req,20000);if(clean(b.website,100))return json(res,200,{success:true});const key='contact:'+ip(req),now=Date.now(),list=(attempts.get(key)||[]).filter(t=>now-t<36e5);if(list.length>=5)return json(res,429,{error:'Please wait before sending another message.'});const name=clean(b.name,100),email=clean(b.email,254),subject=clean(b.subject,160)||'Portfolio enquiry',message=clean(b.message,5000);if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||message.length<10)return json(res,400,{error:'Enter your name, valid email and a message of at least 10 characters.'});const messages=await array(MSG_FILE),item={id:crypto.randomUUID(),name,email,subject,message,createdAt:new Date().toISOString(),emailNotificationSent:false};messages.push(item);await atomic(MSG_FILE,messages);list.push(now);attempts.set(key,list);if(process.env.RESEND_API_KEY){try{const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json'},body:JSON.stringify({from:process.env.RESEND_FROM_EMAIL||'Portfolio <onboarding@resend.dev>',to:['business.rijan.np@gmail.com'],reply_to:email,subject:'[Portfolio] '+subject,text:'From: '+name+' <'+email+'>\n\n'+message})});item.emailNotificationSent=r.ok;if(!r.ok)console.error('Resend:',r.status,await r.text());}catch(e){console.error('Resend:',e.message);}await atomic(MSG_FILE,messages);}return json(res,201,{success:true,emailNotificationSent:item.emailNotificationSent,message:item.emailNotificationSent?'Message sent. Thank you.':'Message saved to the admin inbox. Email notification needs provider configuration.'});}
+ if(req.method==='GET'&&u.pathname==='/api/health')return json(res,200,{status:'ok'});
+ return json(res,404,{error:'API route not found.'});
 }
-
-const server = http.createServer(async (request, response) => {
-  if (request.method !== 'GET' && request.method !== 'HEAD') {
-    response.setHeader('Allow', 'GET, HEAD');
-    return sendText(response, 405, 'Method not allowed');
-  }
-
-  let pathname;
-  try {
-    pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
-  } catch {
-    return sendText(response, 400, 'Bad request');
-  }
-
-  const segments = pathname.split('/').filter(Boolean);
-  if (segments.some(segment => segment.startsWith('.')) || (segments.length && !publicDirectories.has(segments[0]) && !publicRootFiles.has(segments[0]))) {
-    return sendText(response, 404, 'Not found');
-  }
-
-  const filePath = path.resolve(siteRoot, `.${pathname}`);
-  if (filePath !== siteRoot && !filePath.startsWith(`${siteRoot}${path.sep}`)) {
-    return sendText(response, 403, 'Forbidden');
-  }
-
-  try {
-    let stats = await fs.promises.stat(filePath);
-    let resolvedPath = filePath;
-    if (stats.isDirectory()) {
-      resolvedPath = path.join(filePath, 'index.html');
-      stats = await fs.promises.stat(resolvedPath);
-    }
-    if (!stats.isFile()) return sendText(response, 404, 'Not found');
-
-    response.writeHead(200, {
-      'Content-Length': stats.size,
-      'Content-Type': mimeTypes[path.extname(resolvedPath).toLowerCase()] || 'application/octet-stream',
-      'Cache-Control': 'no-cache',
-      'Referrer-Policy': 'strict-origin-when-cross-origin',
-      'X-Content-Type-Options': 'nosniff'
-    });
-    if (request.method === 'HEAD') return response.end();
-
-    const stream = fs.createReadStream(resolvedPath);
-    stream.on('error', () => response.destroy());
-    stream.pipe(response);
-  } catch (error) {
-    if (error.code === 'ENOENT' || error.code === 'ENOTDIR') return sendText(response, 404, 'Not found');
-    console.error('Static file request failed:', error);
-    return sendText(response, 500, 'Internal server error');
-  }
-});
-
-server.listen(port, '0.0.0.0', () => {
-  console.log(`Static portfolio listening on port ${port}`);
-});
+async function staticFile(req,res,u){let p;try{p=decodeURIComponent(u.pathname);}catch{return text(res,400,'Bad request');}if(p==='/admin')p='/admin/';if(p==='/admin/')p='/admin/index.html';if(p==='/data.js'){const d=await siteData();res.writeHead(200,{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});return res.end('var SITE_DATA = '+JSON.stringify(d).replace(/</g,'\\u003c')+';');}const parts=p.split('/').filter(Boolean);if(parts.some(x=>x.startsWith('.'))||(parts.length&&!dirs.has(parts[0])&&!rootFiles.has(parts[0])))return text(res,404,'Not found');const file=path.resolve(ROOT,'.'+p);if(file!==ROOT&&!file.startsWith(ROOT+path.sep))return text(res,403,'Forbidden');try{let f=file,st=await fs.promises.stat(f);if(st.isDirectory()){f=path.join(f,'index.html');st=await fs.promises.stat(f);}if(!st.isFile())return text(res,404,'Not found');const isAdmin=p.startsWith('/admin');res.writeHead(200,{'Content-Length':st.size,'Content-Type':mime[path.extname(f).toLowerCase()]||'application/octet-stream','Cache-Control':isAdmin?'no-store':'no-cache','X-Content-Type-Options':'nosniff','Referrer-Policy':'strict-origin-when-cross-origin',...(isAdmin?{'X-Frame-Options':'DENY',"Content-Security-Policy":"frame-ancestors 'none'; base-uri 'self'; form-action 'self'"}:{})});if(req.method==='HEAD')return res.end();fs.createReadStream(f).pipe(res);}catch(e){if(e.code==='ENOENT'||e.code==='ENOTDIR')return text(res,404,'Not found');console.error(e);return text(res,500,'Internal server error');}}
+const server=http.createServer(async(req,res)=>{try{const u=new URL(req.url,'http://localhost');if(u.pathname.startsWith('/api/')){if(!['GET','POST','PUT','DELETE'].includes(req.method)){res.setHeader('Allow','GET, POST, PUT, DELETE');return json(res,405,{error:'Method not allowed'});}return await api(req,res,u);}if(!['GET','HEAD'].includes(req.method)){res.setHeader('Allow','GET, HEAD');return text(res,405,'Method not allowed');}return await staticFile(req,res,u);}catch(e){console.error(e);if(!res.headersSent)return json(res,e.status||500,{error:e.status?e.message:'Internal server error'});res.destroy();}});
+init().then(()=>server.listen(PORT,'0.0.0.0',()=>console.log('Portfolio server listening on '+PORT+'; data directory '+DATA_DIR))).catch(e=>{console.error('Storage initialization failed:',e);process.exit(1);});
