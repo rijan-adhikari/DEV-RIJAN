@@ -76,6 +76,7 @@
 <link rel="stylesheet" href="css/desktop-3d.css" />
 <link rel="stylesheet" href="css/scroll-world.css" />
 <link rel="stylesheet" href="css/hacker-theme.css" />
+<link rel="stylesheet" href="css/contact-form.css" />
 <link rel="stylesheet" href="css/composition.css" />
 <link rel="stylesheet" href="css/mobile-readability.css" />
 </head>
@@ -399,13 +400,24 @@
       </div>
       <div class="contact__layout contact__layout--direct">
         <div class="contact__intro panel reveal">
-          <span class="eyebrow">DIRECT CONNECTION · NO FORM</span>
+          <span class="eyebrow">DIRECT CONNECTION</span>
           <h3>Have an idea? Let's talk.</h3>
-          <p>For collaborations, technical discussions, project opportunities, or a simple hello, choose a channel below and reach me directly.</p>
+          <p>For collaborations, technical discussions, project opportunities, or a simple hello, send me a message or reach me directly.</p>
           <div class="contact__availability"><span class="contact__availability-dot"></span> Open to meaningful conversations</div>
           <div class="contact__coordinates"><span>LOCATION</span><strong>Nepal · UTC+5:45</strong></div>
         </div>
         <div class="contact__side reveal" id="contact-side"></div>
+        <form class="portfolio-contact panel reveal" id="portfolio-contact-form">
+          <div class="portfolio-contact__heading"><span class="eyebrow">SEND A MESSAGE</span><h3>Let's start a conversation.</h3><p>Your message will be saved in my portfolio inbox. Email notifications will be enabled once the mail provider is configured.</p></div>
+          <div class="portfolio-contact__fields">
+            <label>Your name<input name="name" type="text" maxlength="100" autocomplete="name" required placeholder="Your name"></label>
+            <label>Email address<input name="email" type="email" maxlength="254" autocomplete="email" required placeholder="you@example.com"></label>
+            <label class="portfolio-contact__full">Subject<input name="subject" type="text" maxlength="160" placeholder="What would you like to discuss?"></label>
+            <label class="portfolio-contact__full">Message<textarea name="message" rows="5" maxlength="5000" required minlength="10" placeholder="Write your message…"></textarea></label>
+            <label class="portfolio-contact__trap" aria-hidden="true">Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <div class="portfolio-contact__actions"><button class="btn magnetic" type="submit">Send message ↗</button><p id="contact-form-status" role="status" aria-live="polite"></p></div>
+        </form>
       </div>
     </div>
   </section>
@@ -479,6 +491,7 @@
 <script src="js/auto-scroll.js"></script>
 <script src="js/voice-explain.js"></script>
 <script src="js/main.js"></script>
+<script src="js/contact-form.js"></script>
 <script src="js/boot.js"></script>
 <script src="js/hud.js"></script>
 <script src="js/scene-scroll.js"></script>
