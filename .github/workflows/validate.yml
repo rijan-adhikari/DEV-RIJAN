@@ -16,9 +16,8 @@ jobs:
         run: |
           node --check server.js
           node --check data.js
-          node --check admin/admin.js
-          node --check js/contact-form.js
-      - name: Test server, forced password change, content API and inbox
+          for file in js/*.js; do node --check "$file"; done
+      - name: Test public site and contact endpoint
         run: |
           DATA_DIR="$RUNNER_TEMP/portfolio-data" PORT=4173 node server.js > "$RUNNER_TEMP/portfolio.log" 2>&1 &
           SERVER_PID=$!
@@ -28,10 +27,10 @@ jobs:
             sleep 1
           done
           curl -fsS http://127.0.0.1:4173/api/health | grep -q '"status":"ok"'
-          curl -fsS -c "$RUNNER_TEMP/cookies" -H 'Content-Type: application/json' -d '{"username":"admin","password":"admin"}' http://127.0.0.1:4173/api/admin/login | grep -q '"mustChangePassword":true'
-          STATUS=$(curl -sS -o "$RUNNER_TEMP/guard.json" -w '%{http_code}' -b "$RUNNER_TEMP/cookies" http://127.0.0.1:4173/api/admin/data)
-          test "$STATUS" = "403"
-          curl -fsS -b "$RUNNER_TEMP/cookies" -c "$RUNNER_TEMP/cookies" -X PUT -H 'Content-Type: application/json' -d '{"currentPassword":"admin","username":"owner","newPassword":"A-Strong-Test-Password-2026"}' http://127.0.0.1:4173/api/admin/password | grep -q '"success":true'
-          curl -fsS -b "$RUNNER_TEMP/cookies" http://127.0.0.1:4173/api/admin/data | grep -q '"projects"'
+          curl -fsS http://127.0.0.1:4173/ | grep -q 'Rijan Adhikari'
+          curl -fsS http://127.0.0.1:4173/data.js | grep -q 'SITE_DATA'
+          STATUS=$(curl -sS -o "$RUNNER_TEMP/admin.json" -w '%{http_code}' http://127.0.0.1:4173/api/admin/data)
+          test "$STATUS" = "404"
+          STATUS=$(curl -sS -o "$RUNNER_TEMP/admin-page.txt" -w '%{http_code}' http://127.0.0.1:4173/admin)
+          test "$STATUS" = "404"
           curl -fsS -H 'Content-Type: application/json' -d '{"name":"CI Test","email":"ci@example.com","subject":"Smoke test","message":"This is an automated contact form test."}' http://127.0.0.1:4173/api/contact | grep -q '"success":true'
-          curl -fsS -b "$RUNNER_TEMP/cookies" http://127.0.0.1:4173/api/admin/messages | grep -q 'Automated contact form test'
