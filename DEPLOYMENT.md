@@ -15,12 +15,12 @@ The public site content lives in `data.js`. To update it, edit the `SITE_DATA` o
 
 ## Contact form email notifications
 
-To send contact form notifications to `business.rijan.np@gmail.com`, configure these environment variables in Render:
+The public contact form sends submissions directly to `business.rijan.np@gmail.com` through Resend. Configure both environment variables in the Render web service before testing:
 
 - `RESEND_API_KEY`: private API key from Resend.
 - `RESEND_FROM_EMAIL`: a sender address verified with Resend.
 
-Do not put API keys in source code or GitHub. If email configuration is absent, accepted messages are stored in the server's `DATA_DIR`. Render's local filesystem may be reset during deploys or instance replacement; persistent storage is optional if message retention is important and may require a paid plan.
+The API does not store submissions on the server. If either variable is missing or Resend rejects delivery, the form displays an error instead of claiming the message was sent. Do not put API keys in source code or GitHub.
 
 ## Verification
 
