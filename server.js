@@ -8,7 +8,6 @@ const text=(res,status,msg)=>{res.writeHead(status,{'Content-Type':'text/plain; 
 const body=(req,max=1e6)=>new Promise((resolve,reject)=>{let raw='';req.on('data',c=>{raw+=c;if(raw.length>max){reject(Object.assign(Error('Request too large'),{status:413}));req.destroy();}});req.on('end',()=>{try{resolve(raw?JSON.parse(raw):{});}catch{reject(Object.assign(Error('Invalid JSON'),{status:400}));}});req.on('error',reject);});
 const atomic=async(file,value)=>{const tmp=file+'.'+crypto.randomBytes(5).toString('hex')+'.tmp';await fs.promises.writeFile(tmp,JSON.stringify(value,null,2),{mode:0o600});await fs.promises.rename(tmp,file);};
 const array=async file=>{try{const v=JSON.parse(await fs.promises.readFile(file,'utf8'));return Array.isArray(v)?v:[];}catch(e){if(e.code==='ENOENT')return[];throw e;}};
-function defaults(){const c={};vm.runInNewContext(fs.readFileSync(path.join(ROOT,'data.js'),'utf8')+';globalThis.result=SITE_DATA;',c,{timeout:1000});return JSON.parse(JSON.stringify(c.result));}
 const clean=(v,n=3000)=>typeof v==='string'?v.trim().slice(0,n):'';
 const ip=req=>String(req.headers['x-forwarded-for']||req.socket.remoteAddress||'unknown').split(',')[0].trim();
 async function init(){await fs.promises.mkdir(DATA_DIR,{recursive:true,mode:0o700});try{await fs.promises.access(MSG_FILE);}catch{await atomic(MSG_FILE,[]);}}
